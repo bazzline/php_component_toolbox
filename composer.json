@@ -1,0 +1,28 @@
+{
+    "name": "net_bazzline/php_component_toolbox",
+    "description": "free as in freedom free software collection of tools to easy and speed up development with php",
+    "keywords": ["php", "component", "toolbox", "tools", "utilities", "array", "invoke", "reusable", "free as in freedom"],
+    "type": "library",
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.3.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.7.5"
+    },
+    "license": "LGPLv3",
+    "authors": [
+        {
+            "name": "Stev Leibelt",
+            "email": "artodeto@bazzline.net",
+            "homepage": "https://artodeto.bazzline.net",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "Net\\Bazzline\\Component\\Toolbox": "source/",
+            "Test\\Net\\Bazzline\\Component\\Toolbox": "test/"
+        }
+    }
+}
