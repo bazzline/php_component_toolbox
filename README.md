@@ -26,7 +26,7 @@ git clone https://github.com/bazzline/php_component_toolbox .
 
 ## [Progress](https://github.com/bazzline/php_component_toolbox/tree/master/source/Net/Bazzline/Component/Toolbox/Progress)
 
-* [EnumerableDeferred](https://github.com/bazzline/php_component_toolbox/blob/master/source/Net/Bazzline/Component/Toolbox/Process/EnumerableDeferred.php) - enables you to executed prepare or cleanup functions after n processed entries
+* [EnumerableDeferred](https://github.com/bazzline/php_component_toolbox/blob/master/source/Net/Bazzline/Component/Toolbox/Process/EnumerableDeferred.php) - enables you to execute a prepare or a cleanup function after processing n entries
 
 # API
 
