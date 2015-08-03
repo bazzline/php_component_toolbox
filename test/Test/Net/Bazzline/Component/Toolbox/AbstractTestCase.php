@@ -6,12 +6,25 @@
 
 namespace Test\Net\Bazzline\Component\Toolbox;
 
+use Net\Bazzline\Component\Toolbox\Collection\Chunk\ChunkIterator;
 use Net\Bazzline\Component\Toolbox\HashMap\Combine;
 use Net\Bazzline\Component\Toolbox\Process\EnumerableDeferred;
 use PHPUnit_Framework_TestCase;
 
 abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @param int $maximum
+     * @param int $minimum
+     * @param int $stepSize
+     *
+*@return ChunkIterator
+     */
+    protected function getNewCollectionChunkIterator($maximum, $minimum, $stepSize)
+    {
+        return new ChunkIterator($maximum, $minimum, $stepSize);
+    }
+
     /**
      * @return Combine
      */
