@@ -1,6 +1,6 @@
 <?php
 /**
- * @author: stev leibelt <stev.leibelt@jobleads.de>
+ * @author: stev leibelt <artodeto@bazzline.net>
  * @since: 2015-08-03
  */
 namespace Net\Bazzline\Component\Toolbox\Collection\Chunk;
