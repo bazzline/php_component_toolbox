@@ -32,6 +32,9 @@ class ChunkIteratorTest extends AbstractTestCase
      * @dataProvider provideInvalidInitialParameters
      * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage minimum must be less than the maximum
+     * @param $maximum
+     * @param $minimum
+     * @param $stepSize
      */
     public function testInitiateWithInvalidParameters($maximum, $minimum, $stepSize)
     {
@@ -58,6 +61,26 @@ class ChunkIteratorTest extends AbstractTestCase
         $stepSize       = 5;
         $numberOfChunks = 0;
         $chunkIterator  = $this->getNewCollectionChunkIterator($maximum, $minimum, $stepSize);
+
+        foreach ($chunkIterator as $chunk) {
+            $this->assertTrue(($maximum > $chunk->minimum()));
+            $this->assertTrue(($minimum <= $chunk->minimum()));
+            $this->assertTrue(($maximum >= $chunk->maximum()));
+            ++$numberOfChunks;
+        }
+
+        $this->assertEquals(3, $numberOfChunks);
+    }
+
+    public function testWithMultipleStepsByCallingInitialize()
+    {
+        $maximum        = 17;
+        $minimum        = 3;
+        $stepSize       = 5;
+        $numberOfChunks = 0;
+        $chunkIterator  = $this->getNewCollectionChunkIterator();
+
+        $chunkIterator->initialize($maximum, $minimum, $stepSize);
 
         foreach ($chunkIterator as $chunk) {
             $this->assertTrue(($maximum > $chunk->minimum()));

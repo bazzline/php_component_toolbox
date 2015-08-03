@@ -26,11 +26,27 @@ class ChunkIterator implements Iterator
     private $stepSize;
 
     /**
+     * @param null|int $maximum
+     * @param null|int $minimum
+     * @param null|int $stepSize
+     * @throws InvalidArgumentException
+     */
+    public function __construct($maximum = null, $minimum = null, $stepSize = null)
+    {
+        if ((!is_null($maximum))
+            && (!is_null($minimum))
+            && (!is_null($stepSize))) {
+            $this->initialize($maximum, $minimum, $stepSize);
+        }
+    }
+
+    /**
      * @param int $maximum
      * @param int $minimum
      * @param int $stepSize
+     * @throws InvalidArgumentException
      */
-    public function __construct($maximum, $minimum, $stepSize)
+    public function initialize($maximum, $minimum, $stepSize)
     {
         $this->maximum  = (int) $maximum;
         $this->minimum  = (int) $minimum;
@@ -53,8 +69,6 @@ class ChunkIterator implements Iterator
         $this->rewind();
     }
 
-
-
     /**
      * (PHP 5 &gt;= 5.0.0)<br/>
      * Return the key of the current element
@@ -66,8 +80,6 @@ class ChunkIterator implements Iterator
     {
         return $this->currentStep;
     }
-
-
 
     /**
      * (PHP 5 &gt;= 5.0.0)<br/>
