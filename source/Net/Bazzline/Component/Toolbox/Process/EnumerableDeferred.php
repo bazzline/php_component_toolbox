@@ -25,16 +25,16 @@ class EnumerableDeferred
 
     /**
      * @param callable $initializer
-     * @param callable $finisher
      * @param callable $processor
+     * @param callable $finisher
      * @param int $limit
      */
-    public function __construct($initializer, $finisher, $processor, $limit = 10)
+    public function __construct($initializer, $processor, $finisher, $limit = 10)
     {
         $this->iterationLimit   = (int) $limit;
         $this->initializer      = $initializer;
-        $this->finisher         = $finisher;
         $this->processor        = $processor;
+        $this->finisher         = $finisher;
 
         $this->initialize();
     }

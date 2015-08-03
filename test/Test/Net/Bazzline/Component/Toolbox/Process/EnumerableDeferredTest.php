@@ -23,7 +23,7 @@ class EnumerableDeferredTest extends AbstractTestCase
         $initializer = function () use (&$initializerIterator) {
             ++$initializerIterator;
         };
-        $process = function () use (&$argumentCollection, &$processIterator) {
+        $processor = function () use (&$argumentCollection, &$processIterator) {
             $argumentCollection[] = func_get_args();
             ++$processIterator;
         };
@@ -32,14 +32,14 @@ class EnumerableDeferredTest extends AbstractTestCase
             $collection[] = array('foo', 'bar');
         }
 
-        $process = $this->getNewEnumerableDeferredProcess($initializer, $finisher, $process, 10);
+        $processor = $this->getNewEnumerableDeferredProcess($initializer, $processor, $finisher, 10);
 
         foreach ($collection as $entry) {
-            call_user_func_array(array($process, 'increase'), $entry);
+            call_user_func_array(array($processor, 'increase'), $entry);
         }
 
         //we have to unset the process to trigger the destructor method
-        unset($process);
+        unset($processor);
 
         $this->assertEquals(5, $finisherIterator);
         $this->assertEquals(5, $initializerIterator);
@@ -63,7 +63,7 @@ class EnumerableDeferredTest extends AbstractTestCase
         $initializer = function () use (&$initializerIterator) {
             ++$initializerIterator;
         };
-        $process = function () use (&$argumentCollection, &$processIterator) {
+        $processor = function () use (&$argumentCollection, &$processIterator) {
             $argumentCollection[] = func_get_args();
             ++$processIterator;
         };
@@ -72,14 +72,14 @@ class EnumerableDeferredTest extends AbstractTestCase
             $collection[] = array('foo', 'bar');
         }
 
-        $process = $this->getNewEnumerableDeferredProcess($initializer, $finisher, $process, 10);
+        $processor = $this->getNewEnumerableDeferredProcess($initializer, $processor, $finisher, 10);
 
         foreach ($collection as $entry) {
-            call_user_func_array($process, $entry);
+            call_user_func_array($processor, $entry);
         }
 
         //we have to unset the process to trigger the destructor method
-        unset($process);
+        unset($processor);
 
         $this->assertEquals(5, $finisherIterator);
         $this->assertEquals(5, $initializerIterator);
