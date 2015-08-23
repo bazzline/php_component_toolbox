@@ -43,6 +43,8 @@ git clone https://github.com/bazzline/php_component_toolbox .
         * add project overview (travis, scrutinizer, openhub etc.)
         * create examples for the sections
         * implement generator to update "Available Sections"
+* [1.2.2](https://github.com/bazzline/php_component_toolbox/tree/1.2.2) - released at 23.08.2015
+    * updated dependency
 * [1.2.1](https://github.com/bazzline/php_component_toolbox/tree/1.2.1) - released at 03.08.2015
     * made [ChunkIterator](https://github.com/bazzline/php_component_toolbox/blob/master/source/Net/Bazzline/Component/Toolbox/Collection/Chunk/ChunkIterator.php) reusable by making constructor parameters optional and create public initialize method
 * [1.2.0](https://github.com/bazzline/php_component_toolbox/tree/1.2.0) - released at 03.08.2015
