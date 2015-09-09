@@ -31,6 +31,7 @@ git clone https://github.com/bazzline/php_component_toolbox .
 ## [Progress](https://github.com/bazzline/php_component_toolbox/tree/master/source/Net/Bazzline/Component/Toolbox/Progress)
 
 * [EnumerableDeferred](https://github.com/bazzline/php_component_toolbox/blob/master/source/Net/Bazzline/Component/Toolbox/Process/EnumerableDeferred.php) - enables you to execute a prepare or a cleanup function after processing n entries
+* [Experiment](https://github.com/bazzline/php_component_toolbox/blob/master/source/Net/Bazzline/Component/Toolbox/Process/Experiment.php) - enables you to try to execute a callback up to x times
 
 # API
 
@@ -43,6 +44,8 @@ git clone https://github.com/bazzline/php_component_toolbox .
         * add project overview (travis, scrutinizer, openhub etc.)
         * create examples for the sections
         * implement generator to update "Available Sections"
+* [1.3.0](https://github.com/bazzline/php_component_toolbox/tree/1.3.0) - released at 09.09.2015
+    * added [Experiment](https://github.com/bazzline/php_component_toolbox/blob/master/source/Net/Bazzline/Component/Toolbox/Process/Experiment.php)
 * [1.2.2](https://github.com/bazzline/php_component_toolbox/tree/1.2.2) - released at 23.08.2015
     * updated dependency
 * [1.2.1](https://github.com/bazzline/php_component_toolbox/tree/1.2.1) - released at 03.08.2015

@@ -10,8 +10,13 @@ use InvalidArgumentException;
 use Net\Bazzline\Component\Toolbox\Collection\Chunk\ChunkIterator;
 use Net\Bazzline\Component\Toolbox\HashMap\Combine;
 use Net\Bazzline\Component\Toolbox\Process\EnumerableDeferred;
+use Net\Bazzline\Component\Toolbox\Process\Experiment;
 use PHPUnit_Framework_TestCase;
 
+/**
+ * Class AbstractTestCase
+ * @package Test\Net\Bazzline\Component\Toolbox
+ */
 abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
 {
     /**
@@ -44,5 +49,13 @@ abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
     protected function getNewEnumerableDeferredProcess($initializer, $finisher, $processor, $limit = 10)
     {
         return new EnumerableDeferred($initializer, $finisher, $processor, $limit);
+    }
+
+    /**
+     * @return Experiment
+     */
+    protected function getNewExperimentProcess()
+    {
+        return new Experiment();
     }
 }
