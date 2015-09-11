@@ -6,6 +6,7 @@
 namespace Test\Net\Bazzline\Component\Toolbox\Process;
 
 use Test\Net\Bazzline\Component\Toolbox\AbstractTestCase;
+use stdClass;
 
 /**
  * Class ExperimentTest
@@ -13,39 +14,55 @@ use Test\Net\Bazzline\Component\Toolbox\AbstractTestCase;
  */
 class ExperimentTest extends AbstractTestCase
 {
-    /** @var int */
-    private $iterator;
+    /** @var stdClass */
+    private $state;
 
-    /** @var bool */
-    private $fallbackExecuted;
-
-    public function experiments()
+    public function testExperiments()
     {
-        $iterator           = &$this->iterator;
-        $fallbackExecuted   = &$this->fallbackExecuted;
+        $this->markTestSkipped();
+        $this->setUpState();
+        foreach ($this->experimentTestCases() as $name => $testCase) {
+            $testCase['name'] = $name;
+            call_user_func_array(array($this, 'tryOutExperiment'), $testCase);
+            $this->setUpState();
+        }
+    }
+
+    /**
+     * @return array
+     */
+    private function experimentTestCases()
+    {
+        $state = $this->state;
 
         return array(
             'last run is successful' => array(
-                'times'             => 3,
-                'test'              => function () use (&$iterator) {
-                    ++$iterator;
-                    return ($iterator > 2);
+                'trial'             => function () use ($state) {
+                    ++$state->iterator;
+                    return ($state->iterator > 2);
                 },
+                'times'             => 3,
                 'wait'              => 100,
-                'fallback'          => function () use (&$fallbackExecuted) {
-                    $fallbackExecuted = true;
+                'onSuccess'         => function () use ($state) {
+                    $state->successfulExecuted = true;
+                },
+                'onFailure'         => function () use ($state) {
+                    $state->fallbackExecuted = true;
                 },
                 'wasSuccessful'     => true
             ),
             'first run is successful' => array(
-                'times'             => 3,
-                'test'              => function () use (&$iterator) {
-                    ++$iterator;
-                    return ($iterator > 0);
+                'trial'             => function () use ($state) {
+                    ++$state->iterator;
+                    return ($state->iterator > 0);
                 },
-                'wait'              => 500,
-                'fallback'          => function () use (&$fallbackExecuted) {
-                    $fallbackExecuted = true;
+                'times'             => 3,
+                'wait'              => 100,
+                'onSuccess'         => function () use ($state) {
+                    $state->successfulExecuted = true;
+                },
+                'onFailure'         => function () use ($state) {
+                    $state->fallbackExecuted = true;
                 },
                 'wasSuccessful'     => true
             )
@@ -53,27 +70,37 @@ class ExperimentTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider experiments
+     * @param callback $trial
      * @param int $times
-     * @param callback $test
      * @param int $wait
-     * @param callback $fallback
+     * @param null|callback $onSuccess
+     * @param null|callback $onFailure
      * @param bool $expectedWasSuccessful
+     * @param string $name
      */
-    public function testExperiment($times, $test, $wait, $fallback, $expectedWasSuccessful)
+    private function tryOutExperiment($trial, $times, $wait, $onSuccess = null, $onFailure = null, $expectedWasSuccessful, $name)
     {
-        $this->iterator         = 0;
-        $this->fallbackExecuted = false;
-
         $experiment = $this->getNewExperimentProcess();
 
-        $wasSuccessful = $experiment->attempt($times)
-            ->toExecute($test)
-            ->andWaitFor($wait)
-            ->orExecute($fallback)
-            ->andFinallyStartTheExperiment();
+        $experiment->prepareNewExperiment($trial, $times, $wait, $onSuccess, $onFailure);
+        $wasSuccessful = $experiment->andTryIt();
 
-        $this->assertEquals($expectedWasSuccessful, $wasSuccessful);
-        $this->assertFalse($this->fallbackExecuted);
+        $this->assertEquals($expectedWasSuccessful, $wasSuccessful, $name);
+
+        if ($expectedWasSuccessful) {
+            $this->assertFalse($this->state->fallbackExecuted, $name);
+            $this->assertTrue($this->state->successfulExecuted, $name);
+        } else {
+            $this->assertFalse($this->state->successfulExecuted, $name);
+            $this->assertTrue($this->state->fallbackExecuted, $name);
+        }
+    }
+
+    private function setUpState()
+    {
+        $this->state                        = new stdClass();
+        $this->state->iterator              = 0;
+        $this->state->fallbackExecuted      = false;
+        $this->state->successfulExecuted    = false;
     }
 }

@@ -5,6 +5,9 @@
  */
 namespace Net\Bazzline\Component\Toolbox\Process;
 
+use Exception;
+use InvalidArgumentException;
+
 /**
  * Class Experiment
  * @package Net\Bazzline\Component\Toolbox\Process
@@ -12,10 +15,10 @@ namespace Net\Bazzline\Component\Toolbox\Process;
 class Experiment
 {
     /** @var callable */
-    private $experiment;
+    private $onFailure;
 
     /** @var callable */
-    private $fallback;
+    private $onSuccess;
 
     /** @var int */
     private $times;
@@ -23,12 +26,12 @@ class Experiment
     /** @var int */
     private $wait;
 
+    /** @var callable */
+    private $trial;
+
     public function __construct()
     {
-        $this->experiment   = function () {};
-        $this->fallback     = function () {};
-        $this->times        = 0;
-        $this->wait         = 0;
+        $this->reset();
     }
 
     /**
@@ -36,49 +39,38 @@ class Experiment
      */
     public function __invoke()
     {
-        return $this->andFinallyStartTheExperiment();
+        return $this->andTryIt();
     }
 
     /**
-     * @param callable $callable - needs to return true on success or false for a next try
+     * @param callable $trial - must return bool or throw an exception on error
+     * @param int $numberOfRetries
+     * @param int $millisecondsToWaitBetweenRetry
+     * @param null|callable $onSuccess
+     * @param null|callable $onFailure
      * @return $this
+     * @throws InvalidArgumentException
      */
-    public function toExecute($callable)
+    public function prepareNewExperiment($trial, $numberOfRetries = 3, $millisecondsToWaitBetweenRetry = 250, $onSuccess = null, $onFailure = null)
     {
-        $this->experiment = $callable;
+        $this->reset();
 
-        return $this;
-    }
+        if (is_callable($onFailure)) {
+            $this->onFailure = $onFailure;
+        }
+        if (is_callable($onSuccess)) {
+            $this->onSuccess = $onSuccess;
+        }
+        $this->wait     = $millisecondsToWaitBetweenRetry;
+        $this->times    = $numberOfRetries;
 
-    /**
-     * @param int $times
-     * @return $this
-     */
-    public function attempt($times)
-    {
-        $this->times = $times;
-
-        return $this;
-    }
-
-    /**
-     * @param int $milliseconds
-     * @return $this
-     */
-    public function andWaitFor($milliseconds)
-    {
-        $this->wait = $milliseconds;
-
-        return $this;
-    }
-
-    /**
-     * @param callable $callable
-     * @return $this
-     */
-    public function orExecute($callable)
-    {
-        $this->fallback = $callable;
+        if (is_callable($onFailure)) {
+            $this->trial = $trial;
+        } else {
+            throw new InvalidArgumentException(
+                'trail must be a callable'
+            );
+        }
 
         return $this;
     }
@@ -86,17 +78,18 @@ class Experiment
     /**
      * @return bool
      */
-    public function andFinallyStartTheExperiment()
+    public function andTryIt()
     {
-        $experiment         = $this->experiment;
+        $fallback           = $this->onFailure;
         $iterator           = 0;
-        $fallback           = $this->fallback;
+        $success            = $this->onSuccess;
         $times              = $this->times;
+        $trial              = $this->trial;
         $wait               = $this->wait;
         $wasNotSuccessful   = true;
 
         while ($iterator < $times) {
-            if ($experiment()) {
+            if ($this->wasSuccessful($trial)){
                 $wasNotSuccessful = false;
                 break;
             }
@@ -105,9 +98,45 @@ class Experiment
         }
 
         if ($wasNotSuccessful) {
-            $fallback();
+            $this->call($fallback);
+        } else {
+            $this->call($success);
         }
 
         return (!$wasNotSuccessful);
+    }
+
+    /**
+     * @param callable $trial
+     * @return bool
+     */
+    private function wasSuccessful($trial)
+    {
+        try {
+            $wasSuccessful = $this->call($trial);
+        } catch (Exception $exception) {
+            $wasSuccessful = false;
+        }
+
+        return $wasSuccessful;
+    }
+
+    /**
+     * @param callable $callable
+     * @return bool
+     * @throws Exception
+     */
+    private function call($callable)
+    {
+        return call_user_func($callable);
+    }
+
+    private function reset()
+    {
+        $this->onFailure    = function () {};
+        $this->onSuccess    = function () {};
+        $this->wait         = 0;
+        $this->times        = 0;
+        $this->trial        = function () {};
     }
 }
