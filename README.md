@@ -44,6 +44,8 @@ git clone https://github.com/bazzline/php_component_toolbox .
         * add project overview (travis, scrutinizer, openhub etc.)
         * create examples for the sections
         * implement generator to update "Available Sections"
+* [1.4.1](https://github.com/bazzline/php_component_toolbox/tree/1.4.1) - released at 17.09.2015
+    * fixed validation issue and exception message spelling issue for the [Experiment](https://github.com/bazzline/php_component_toolbox/blob/master/source/Net/Bazzline/    Component/Toolbox/Process/Experiment.php)
 * [1.4.0](https://github.com/bazzline/php_component_toolbox/tree/1.4.0) - released at 10.09.2015
     * refactored api of the [Experiment](https://github.com/bazzline/php_component_toolbox/blob/master/source/Net/Bazzline/Component/Toolbox/Process/Experiment.php) heavily
 * [1.3.0](https://github.com/bazzline/php_component_toolbox/tree/1.3.0) - released at 09.09.2015

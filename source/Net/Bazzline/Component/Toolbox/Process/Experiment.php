@@ -64,11 +64,11 @@ class Experiment
         $this->wait     = $millisecondsToWaitBetweenRetry;
         $this->times    = $numberOfRetries;
 
-        if (is_callable($onFailure)) {
+        if (is_callable($trial)) {
             $this->trial = $trial;
         } else {
             throw new InvalidArgumentException(
-                'trail must be a callable'
+                'trial must be a callable'
             );
         }
 
