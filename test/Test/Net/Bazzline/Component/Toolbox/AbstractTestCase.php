@@ -11,6 +11,7 @@ use Net\Bazzline\Component\Toolbox\Collection\Chunk\ChunkIterator;
 use Net\Bazzline\Component\Toolbox\HashMap\Combine;
 use Net\Bazzline\Component\Toolbox\Process\EnumerableDeferred;
 use Net\Bazzline\Component\Toolbox\Process\Experiment;
+use Net\Bazzline\Component\Toolbox\Scalar\Text;
 use PHPUnit_Framework_TestCase;
 
 /**
@@ -57,5 +58,13 @@ abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
     protected function getNewExperimentProcess()
     {
         return new Experiment();
+    }
+
+    /**
+     * @return Text
+     */
+    protected function getNewText()
+    {
+        return new Text();
     }
 }

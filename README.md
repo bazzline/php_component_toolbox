@@ -33,6 +33,10 @@ git clone https://github.com/bazzline/php_component_toolbox .
 * [EnumerableDeferred](https://github.com/bazzline/php_component_toolbox/blob/master/source/Net/Bazzline/Component/Toolbox/Process/EnumerableDeferred.php) - enables you to execute a prepare or a cleanup function after processing n entries
 * [Experiment](https://github.com/bazzline/php_component_toolbox/blob/master/source/Net/Bazzline/Component/Toolbox/Process/Experiment.php) - enables you to try to execute a callback up to x times
 
+## [Scalar](https://github.com/bazzline/php_component_toolbox/blob/master/source/Net/Bazzline/Component/Toolbox/Scalar)
+
+* [Text](https://github.com/bazzline/php_component_toolbox/blob/master/source/Net/Bazzline/Component/Toolbox/Scalar/Text.php) - contains useful functions working with strings
+
 # API
 
 [API](http://www.bazzline.net/efef04b8bf3867f969285f1160d52ee8a719940e/index.html) is available at [bazzline.net](http://www.bazzline.net).
@@ -44,8 +48,10 @@ git clone https://github.com/bazzline/php_component_toolbox .
         * add project overview (travis, scrutinizer, openhub etc.)
         * create examples for the sections
         * implement generator to update "Available Sections"
+* [1.5.0](https://github.com/bazzline/php_component_toolbox/tree/1.5.0) - released at 10.10.2015
+    * added [Text](https://github.com/bazzline/php_component_toolbox/blob/master/source/Net/Bazzline/Component/Toolbox/Scalar/Text.php)
 * [1.4.1](https://github.com/bazzline/php_component_toolbox/tree/1.4.1) - released at 17.09.2015
-    * fixed validation issue and exception message spelling issue for the [Experiment](https://github.com/bazzline/php_component_toolbox/blob/master/source/Net/Bazzline/    Component/Toolbox/Process/Experiment.php)
+    * fixed validation issue and exception message spelling issue for the [Experiment](https://github.com/bazzline/php_component_toolbox/blob/master/source/Net/Bazzline/Component/Toolbox/Process/Experiment.php)
 * [1.4.0](https://github.com/bazzline/php_component_toolbox/tree/1.4.0) - released at 10.09.2015
     * refactored api of the [Experiment](https://github.com/bazzline/php_component_toolbox/blob/master/source/Net/Bazzline/Component/Toolbox/Process/Experiment.php) heavily
 * [1.3.0](https://github.com/bazzline/php_component_toolbox/tree/1.3.0) - released at 09.09.2015
