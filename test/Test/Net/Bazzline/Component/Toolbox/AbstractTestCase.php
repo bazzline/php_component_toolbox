@@ -12,6 +12,7 @@ use Net\Bazzline\Component\Toolbox\HashMap\Combine;
 use Net\Bazzline\Component\Toolbox\Process\EnumerableDeferred;
 use Net\Bazzline\Component\Toolbox\Process\Experiment;
 use Net\Bazzline\Component\Toolbox\Scalar\Text;
+use Net\Bazzline\Component\Toolbox\Time\Stopwatch;
 use PHPUnit_Framework_TestCase;
 
 /**
@@ -66,5 +67,13 @@ abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
     protected function getNewText()
     {
         return new Text();
+    }
+
+    /**
+     * @return Stopwatch
+     */
+    protected function getNewStopwatchTime()
+    {
+        return new Stopwatch();
     }
 }

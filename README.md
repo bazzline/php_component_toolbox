@@ -37,6 +37,10 @@ git clone https://github.com/bazzline/php_component_toolbox .
 
 * [Text](https://github.com/bazzline/php_component_toolbox/blob/master/source/Net/Bazzline/Component/Toolbox/Scalar/Text.php) - contains useful functions working with strings
 
+## [Time](https://github.com/bazzline/php_component_toolbox/blob/master/source/Net/Bazzline/Component/Toolbox/Time)
+
+* [Stopwatch](https://github.com/bazzline/php_component_toolbox/blob/master/source/Net/Bazzline/Component/Toolbox/Time/Stopwatch.php) - contains a stopwatch
+
 # API
 
 [API](http://www.bazzline.net/efef04b8bf3867f969285f1160d52ee8a719940e/index.html) is available at [bazzline.net](http://www.bazzline.net).
