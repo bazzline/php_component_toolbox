@@ -52,6 +52,8 @@ git clone https://github.com/bazzline/php_component_toolbox .
         * add project overview (travis, scrutinizer, openhub etc.)
         * create examples for the sections
         * implement generator to update "Available Sections"
+        * start section *Time* and create *Timer* (methods start(), stop(), getRuntime($format))
+    * updated dependency to phpunit
 * [1.5.0](https://github.com/bazzline/php_component_toolbox/tree/1.5.0) - released at 10.10.2015
     * added [Text](https://github.com/bazzline/php_component_toolbox/blob/master/source/Net/Bazzline/Component/Toolbox/Scalar/Text.php)
 * [1.4.1](https://github.com/bazzline/php_component_toolbox/tree/1.4.1) - released at 17.09.2015
