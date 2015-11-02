@@ -52,10 +52,11 @@ git clone https://github.com/bazzline/php_component_toolbox .
         * add project overview (travis, scrutinizer, openhub etc.)
         * create examples for the sections
         * implement generator to update "Available Sections"
-    * updated dependency to phpunit
+    * fixed broken link in release 1.6.0
 * [1.6.0](https://github.com/bazzline/php_component_toolbox/tree/1.6.0) - released at 02.11.2015
-    * added [Stopwatch](https://github.com/bazzline/php_component_toolbox/blob/1.6.0/source/Net/Bazzline/Component/Toolbox/Time/Stopwatch)
+    * added [Stopwatch](https://github.com/bazzline/php_component_toolbox/blob/1.6.0/source/Net/Bazzline/Component/Toolbox/Time/Stopwatch.php)
     * update release notes
+    * updated dependency to phpunit
 * [1.5.0](https://github.com/bazzline/php_component_toolbox/tree/1.5.0) - released at 10.10.2015
     * added [Text](https://github.com/bazzline/php_component_toolbox/blob/1.5.0/source/Net/Bazzline/Component/Toolbox/Scalar/Text.php)
 * [1.4.1](https://github.com/bazzline/php_component_toolbox/tree/1.4.1) - released at 17.09.2015
