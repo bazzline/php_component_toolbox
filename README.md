@@ -52,27 +52,29 @@ git clone https://github.com/bazzline/php_component_toolbox .
         * add project overview (travis, scrutinizer, openhub etc.)
         * create examples for the sections
         * implement generator to update "Available Sections"
-        * start section *Time* and create *Timer* (methods start(), stop(), getRuntime($format))
     * updated dependency to phpunit
+* [1.6.0](https://github.com/bazzline/php_component_toolbox/tree/1.6.0) - released at 02.11.2015
+    * added [Stopwatch](https://github.com/bazzline/php_component_toolbox/blob/1.6.0/source/Net/Bazzline/Component/Toolbox/Time/Stopwatch)
+    * update release notes
 * [1.5.0](https://github.com/bazzline/php_component_toolbox/tree/1.5.0) - released at 10.10.2015
-    * added [Text](https://github.com/bazzline/php_component_toolbox/blob/master/source/Net/Bazzline/Component/Toolbox/Scalar/Text.php)
+    * added [Text](https://github.com/bazzline/php_component_toolbox/blob/1.5.0/source/Net/Bazzline/Component/Toolbox/Scalar/Text.php)
 * [1.4.1](https://github.com/bazzline/php_component_toolbox/tree/1.4.1) - released at 17.09.2015
-    * fixed validation issue and exception message spelling issue for the [Experiment](https://github.com/bazzline/php_component_toolbox/blob/master/source/Net/Bazzline/Component/Toolbox/Process/Experiment.php)
+    * fixed validation issue and exception message spelling issue for the [Experiment](https://github.com/bazzline/php_component_toolbox/blob/1.4.1/source/Net/Bazzline/Component/Toolbox/Process/Experiment.php)
 * [1.4.0](https://github.com/bazzline/php_component_toolbox/tree/1.4.0) - released at 10.09.2015
-    * refactored api of the [Experiment](https://github.com/bazzline/php_component_toolbox/blob/master/source/Net/Bazzline/Component/Toolbox/Process/Experiment.php) heavily
+    * refactored api of the [Experiment](https://github.com/bazzline/php_component_toolbox/blob/1.4.0/source/Net/Bazzline/Component/Toolbox/Process/Experiment.php) heavily
 * [1.3.0](https://github.com/bazzline/php_component_toolbox/tree/1.3.0) - released at 09.09.2015
     * added [Experiment](https://github.com/bazzline/php_component_toolbox/blob/1.3.0/source/Net/Bazzline/Component/Toolbox/Process/Experiment.php)
 * [1.2.2](https://github.com/bazzline/php_component_toolbox/tree/1.2.2) - released at 23.08.2015
     * updated dependency
 * [1.2.1](https://github.com/bazzline/php_component_toolbox/tree/1.2.1) - released at 03.08.2015
-    * made [ChunkIterator](https://github.com/bazzline/php_component_toolbox/blob/master/source/Net/Bazzline/Component/Toolbox/Collection/Chunk/ChunkIterator.php) reusable by making constructor parameters optional and create public initialize method
+    * made [ChunkIterator](https://github.com/bazzline/php_component_toolbox/blob/1.2.1/source/Net/Bazzline/Component/Toolbox/Collection/Chunk/ChunkIterator.php) reusable by making constructor parameters optional and create public initialize method
 * [1.2.0](https://github.com/bazzline/php_component_toolbox/tree/1.2.0) - released at 03.08.2015
-    * added [ChunkIterator](https://github.com/bazzline/php_component_toolbox/blob/master/source/Net/Bazzline/Component/Toolbox/Collection/Chunk/ChunkIterator.php)
+    * added [ChunkIterator](https://github.com/bazzline/php_component_toolbox/blob/1.2.0/source/Net/Bazzline/Component/Toolbox/Collection/Chunk/ChunkIterator.php)
 * [1.1.2](https://github.com/bazzline/php_component_toolbox/tree/1.1.2) - released at 03.08.2015
     * shifted parameters for EnumerableDeferred from (`$initializer, $finisher, $processor, $limit` to `$initializer, $processor, $finisher, $limit`)
 * [1.1.1](https://github.com/bazzline/php_component_toolbox/tree/1.1.1) - released at 30.07.2015
     * updated dependency
 * [1.1.0](https://github.com/bazzline/php_component_toolbox/tree/1.1.0) - released at 30.07.2015
-    * added [EnumerableDeferred](https://github.com/bazzline/php_component_toolbox/blob/master/source/Net/Bazzline/Component/Toolbox/Process/EnumerableDeferred.php)
+    * added [EnumerableDeferred](https://github.com/bazzline/php_component_toolbox/blob/1.1.0/source/Net/Bazzline/Component/Toolbox/Process/EnumerableDeferred.php)
 * [1.0.0](https://github.com/bazzline/php_component_toolbox/tree/1.0.0) - released at 26.06.2015
     * initial release 
