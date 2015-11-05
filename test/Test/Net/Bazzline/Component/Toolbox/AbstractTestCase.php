@@ -13,6 +13,7 @@ use Net\Bazzline\Component\Toolbox\Process\EnumerableDeferred;
 use Net\Bazzline\Component\Toolbox\Process\Experiment;
 use Net\Bazzline\Component\Toolbox\Scalar\Text;
 use Net\Bazzline\Component\Toolbox\Time\Stopwatch;
+use Net\Bazzline\Component\Toolbox\Time\Timestamp;
 use PHPUnit_Framework_TestCase;
 
 /**
@@ -75,5 +76,13 @@ abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
     protected function getNewStopwatchTime()
     {
         return new Stopwatch();
+    }
+
+    /**
+     * @return Timestamp
+     */
+    protected function getNewTimestamp()
+    {
+        return new Timestamp();
     }
 }

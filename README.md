@@ -40,6 +40,7 @@ git clone https://github.com/bazzline/php_component_toolbox .
 ## [Time](https://github.com/bazzline/php_component_toolbox/blob/master/source/Net/Bazzline/Component/Toolbox/Time)
 
 * [Stopwatch](https://github.com/bazzline/php_component_toolbox/blob/master/source/Net/Bazzline/Component/Toolbox/Time/Stopwatch.php) - contains a stopwatch
+* [Timestamp](https://github.com/bazzline/php_component_toolbox/blob/master/source/Net/Bazzline/Component/Toolbox/Time/Timestamp.php) - contains a timestamp object
 
 # API
 
@@ -53,6 +54,8 @@ git clone https://github.com/bazzline/php_component_toolbox .
         * create examples for the sections
         * implement generator to update "Available Sections"
     * fixed broken link in release 1.6.0
+* [1.7.0](https://github.com/bazzline/php_component_toolbox/tree/1.7.0) - released at 05.11.2015
+    * added [Timestamp](https://github.com/bazzline/php_component_toolbox/blob/1.7.0/source/Net/Bazzline/Component/Toolbox/Time/Timestamp.php)
 * [1.6.0](https://github.com/bazzline/php_component_toolbox/tree/1.6.0) - released at 02.11.2015
     * added [Stopwatch](https://github.com/bazzline/php_component_toolbox/blob/1.6.0/source/Net/Bazzline/Component/Toolbox/Time/Stopwatch.php)
     * update release notes
