@@ -53,7 +53,9 @@ git clone https://github.com/bazzline/php_component_toolbox .
         * add project overview (travis, scrutinizer, openhub etc.)
         * create examples for the sections
         * implement generator to update "Available Sections"
+* [1.7.1](https://github.com/bazzline/php_component_toolbox/tree/1.7.1) - released at 11.12.2015
     * fixed broken link in release 1.6.0
+    * updated dependency
 * [1.7.0](https://github.com/bazzline/php_component_toolbox/tree/1.7.0) - released at 05.11.2015
     * added [Timestamp](https://github.com/bazzline/php_component_toolbox/blob/1.7.0/source/Net/Bazzline/Component/Toolbox/Time/Timestamp.php)
 * [1.6.0](https://github.com/bazzline/php_component_toolbox/tree/1.6.0) - released at 02.11.2015
