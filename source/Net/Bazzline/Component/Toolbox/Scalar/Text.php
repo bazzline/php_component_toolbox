@@ -46,6 +46,46 @@ class Text
     }
 
     /**
+     * @param string $string
+     * @param int $expectedLength
+     * @return bool
+     */
+    public function hasTheLengthOf($string, $expectedLength)
+    {
+        $length         = strlen($string);
+        $hasTheLength   = ($length == $expectedLength);
+
+        return $hasTheLength;
+    }
+
+    /**
+     * @param string $string
+     * @param int $expectedLength
+     * @return bool
+     */
+    public function isLongerThan($string, $expectedLength)
+    {
+        $length         = strlen($string);
+        $isLongerThan   = ($length > $expectedLength);
+
+        return $isLongerThan;
+    }
+
+    /**
+     * @param string $string
+     * @param int $expectedLength
+     * @return bool
+     */
+    public function isShorterThan($string, $expectedLength)
+    {
+        $length         = strlen($string);
+        $isShorterThan  = ($length > $expectedLength);
+
+        return $isShorterThan;
+    }
+
+
+    /**
      * @param string $haystack
      * @param string $needle
      * @param bool|false $searchCaseInsensitive
