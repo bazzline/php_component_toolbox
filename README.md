@@ -23,6 +23,7 @@ git clone https://github.com/bazzline/php_component_toolbox .
 ## [Array](https://github.com/bazzline/php_component_toolbox/tree/master/source/Net/Bazzline/Component/Toolbox/HashMap)
 
 * [Combine](https://github.com/bazzline/php_component_toolbox/blob/master/source/Net/Bazzline/Component/Toolbox/HashMap/Combine.php) - advanced implementation of [array_combine](http://php.net/manual/en/function.array-combine.php)
+* [Merge](https://github.com/bazzline/php_component_toolbox/blob/master/source/Net/Bazzline/Component/Toolbox/HashMap/Merge.php) - advanced implementation of [array_merge](http://php.net/manual/en/function.array-merge.php)
 
 ## [Collection](https://github.com/bazzline/php_component_toolbox/tree/master/source/Net/Bazzline/Component/Toolbox/Collection)
 
@@ -53,7 +54,10 @@ git clone https://github.com/bazzline/php_component_toolbox .
         * add project overview (travis, scrutinizer, openhub etc.)
         * create examples for the sections
         * implement generator to update "Available Sections"
-    * added Text::hasTheLengthOf($string, $expectedLength), Text::isLongerThan($string, $expectedLength) and Text::isShorterThan($string, $expectedLength)
+* [1.8.0](https://github.com/bazzline/php_component_toolbox/tree/1.8.0) - released at 15.12.2015
+    * added [Merge](https://github.com/bazzline/php_component_toolbox/blob/master/source/Net/Bazzline/Component/Toolbox/HashMap/Merge.php)
+    * added [Text](https://github.com/bazzline/php_component_toolbox/blob/master/source/Net/Bazzline/Component/Toolbox/Scalar/Text.php)::hasTheLengthOf($string, $expectedLength), Text::isLongerThan($string, $expectedLength) and Text::isShorterThan($string, $expectedLength)
+    * added [Text](https://github.com/bazzline/php_component_toolbox/blob/master/source/Net/Bazzline/Component/Toolbox/Scalar/Text.php)::hasTheLengthOf($string, $expectedLength), Text::isLongerThan($string, $expectedLength) and Text::isShorterThan($string, $expectedLength)
 * [1.7.1](https://github.com/bazzline/php_component_toolbox/tree/1.7.1) - released at 11.12.2015
     * fixed broken link in release 1.6.0
     * updated dependency

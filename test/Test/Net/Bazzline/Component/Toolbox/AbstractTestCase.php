@@ -9,6 +9,7 @@ namespace Test\Net\Bazzline\Component\Toolbox;
 use InvalidArgumentException;
 use Net\Bazzline\Component\Toolbox\Collection\Chunk\ChunkIterator;
 use Net\Bazzline\Component\Toolbox\HashMap\Combine;
+use Net\Bazzline\Component\Toolbox\HashMap\Merge;
 use Net\Bazzline\Component\Toolbox\Process\EnumerableDeferred;
 use Net\Bazzline\Component\Toolbox\Process\Experiment;
 use Net\Bazzline\Component\Toolbox\Scalar\Text;
@@ -40,6 +41,14 @@ abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
     protected function getHashMapCombine()
     {
         return new Combine();
+    }
+
+    /**
+     * @return Merge
+     */
+    protected function getHashMapMerge()
+    {
+        return new Merge();
     }
 
     /**
