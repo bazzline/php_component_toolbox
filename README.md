@@ -55,7 +55,7 @@ git clone https://github.com/bazzline/php_component_toolbox .
         * create examples for the sections
         * implement generator to update "Available Sections"
 * [1.8.1](https://github.com/bazzline/php_component_toolbox/tree/1.8.0) - released at 12.01.2016
-    * fixed dependency handling for phpunit 4.8.*
+    * fixed dependency handling for phpunit 4.8.\*
 * [1.8.0](https://github.com/bazzline/php_component_toolbox/tree/1.8.0) - released at 15.12.2015
     * added [Merge](https://github.com/bazzline/php_component_toolbox/blob/master/source/Net/Bazzline/Component/Toolbox/HashMap/Merge.php)
     * added [Text](https://github.com/bazzline/php_component_toolbox/blob/master/source/Net/Bazzline/Component/Toolbox/Scalar/Text.php)::hasTheLengthOf($string, $expectedLength), Text::isLongerThan($string, $expectedLength) and Text::isShorterThan($string, $expectedLength)
@@ -94,4 +94,4 @@ git clone https://github.com/bazzline/php_component_toolbox .
 
 # Final Words
 
-Star it if you like it :-). Add issues if you need it. Pull patches if you enjoy it. Write a blog entry if yops://gratipay.com/~stevleibelt) if you love it :-].
+Star it if you like it :-). Add issues if you need it. Pull patches if you enjoy it. Write a blog entry if use it. Make a [donation](https://gratipay.com/~stevleibelt) if you love it :-].
