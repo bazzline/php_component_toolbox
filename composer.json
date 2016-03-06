@@ -32,12 +32,12 @@
         }
     ],
     "autoload": {
-        "psr-0": {
+        "psr-4": {
             "Net\\Bazzline\\Component\\Toolbox\\": "source/"
         }
     },
     "autoload-dev": {
-        "psr-0": {
+        "psr-4": {
             "Test\\Net\\Bazzline\\Component\\Toolbox\\": "test/"
         }
     }
