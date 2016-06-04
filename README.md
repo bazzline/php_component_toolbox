@@ -54,6 +54,7 @@ git clone https://github.com/bazzline/php_component_toolbox .
         * add project overview (travis, scrutinizer, openhub etc.)
         * create examples for the sections
         * implement generator to update "Available Sections"
+    * updated to phpunit 5.4
 * [1.9.0](https://github.com/bazzline/php_component_toolbox/tree/1.9.0) - released at 06.03.2016
     * added dedicated integration test for php 7.0
     * moved to psr-4 autoloading
