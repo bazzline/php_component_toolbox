@@ -17,10 +17,10 @@ class ChunkIterator implements Iterator
     private $currentStep;
 
     /** @var int */
-    private $maximum;
+    private $totalMaximum;
 
     /** @var int */
-    private $minimum;
+    private $totalMinimum;
 
     /** @var int */
     private $stepSize;
@@ -33,9 +33,13 @@ class ChunkIterator implements Iterator
      */
     public function __construct($maximum = null, $minimum = null, $stepSize = null)
     {
-        if ((!is_null($maximum))
+        $allMandatoryArgumentsAreProvided = (
+            (!is_null($maximum))
             && (!is_null($minimum))
-            && (!is_null($stepSize))) {
+            && (!is_null($stepSize))
+        );
+
+        if ($allMandatoryArgumentsAreProvided) {
             $this->initialize($maximum, $minimum, $stepSize);
         }
     }
@@ -48,23 +52,23 @@ class ChunkIterator implements Iterator
      */
     public function initialize($maximum, $minimum, $stepSize)
     {
-        $this->maximum  = (int) $maximum;
-        $this->minimum  = (int) $minimum;
-        $this->stepSize = (int) $stepSize;
-
-        if ($this->isGreaterThanOrEqual($this->minimum, $this->maximum)) {
+        if ($this->isGreaterThanOrEqual($minimum, $maximum)) {
             throw new InvalidArgumentException(
-                'minimum must be less than the maximum'
+                'totalMinimum must be less than the totalMaximum'
             );
         }
 
-        $minimumIncreasedByOneStepSize = $this->minimum + $this->stepSize;
+        $minimumIncreasedByOneStepSize = $this->calculateNextMinimum($minimum, $stepSize);
 
-        if ($this->isGreaterThanOrEqual($minimumIncreasedByOneStepSize, $this->maximum)) {
+        if ($this->isGreaterThanOrEqual($minimumIncreasedByOneStepSize, $maximum)) {
             throw new InvalidArgumentException(
-                'step size must be less than the difference between the provided minimum and maximum'
+                'step size must be less than the difference between the provided totalMinimum and totalMaximum'
             );
         }
+
+        $this->setStepSize($stepSize);
+        $this->setTotalMaximum($maximum);
+        $this->setTotalMinimum($minimum);
 
         $this->rewind();
     }
@@ -113,24 +117,24 @@ class ChunkIterator implements Iterator
      */
     public function next()
     {
-        $chunk      = null;
-        $current    = $this->currentChunk;
-        $limit      = $this->maximum;
-        $stepSize   = $this->stepSize;
+        $currentChunk       = $this->currentChunk;
+        $limit              = $this->totalMaximum;
+        $nextChunkOrNull    = null;
+        $stepSize           = $this->stepSize;
 
-        $maximum    = ($current->maximum() + $stepSize);
-        $minimum    = $this->calculateNextMinimum($current->minimum(), $stepSize);
+        $nextMaximum    = $this->calculateNextMaximum($currentChunk->maximum(), $stepSize);
+        $nextMinimum    = $this->calculateNextMinimum($currentChunk->minimum(), $stepSize);
 
-        if (!$this->isGreaterThanOrEqual($minimum, $limit)) {
-            if ($this->isGreaterThanOrEqual($maximum, $limit)) {
-                $maximum = $limit;
+        if (!$this->isGreaterThanOrEqual($nextMinimum, $limit)) {
+            if ($this->isGreaterThanOrEqual($nextMaximum, $limit)) {
+                $nextMaximum = $limit;
             }
 
-            $chunk = $this->createNewChunk($maximum, $minimum);
-            ++$this->currentStep;
+            $nextChunkOrNull = $this->createNewChunk($nextMaximum, $nextMinimum);
+            $this->increaseCurrentStep();
         }
 
-        $this->currentChunk = $chunk;
+        $this->setCurrentChunkOrNull($nextChunkOrNull);
     }
 
     /**
@@ -141,11 +145,13 @@ class ChunkIterator implements Iterator
      */
     public function rewind()
     {
-        $minimum    = $this->minimum;
-        $maximum    = $this->calculateNextMinimum($minimum, $this->stepSize);
+        $initialMinimum = $this->totalMinimum;
+        $stepSize       = $this->stepSize;
+        $initialMaximum = $this->calculateInitialMaximum($initialMinimum, $stepSize);
+        $initialChunk   = $this->createNewChunk($initialMaximum, $initialMinimum);
 
-        $this->currentChunk = $this->createNewChunk($maximum, $minimum);
-        $this->currentStep  = 0;
+        $this->setCurrentChunkOrNull($initialChunk);
+        $this->resetCurrentStep();
     }
 
     /**
@@ -153,9 +159,29 @@ class ChunkIterator implements Iterator
      * @param int $stepSize
      * @return int
      */
-    private function calculateNextMinimum($minimum, $stepSize)
+    private function calculateInitialMaximum($minimum, $stepSize)
     {
-        return ($minimum + $stepSize);
+        return ($this->calculateNextMaximum($minimum, $stepSize) - 1);
+    }
+
+    /**
+     * @param int $currentMaximum
+     * @param int $stepSize
+     * @return int
+     */
+    private function calculateNextMaximum($currentMaximum, $stepSize)
+    {
+        return ($currentMaximum + $stepSize);
+    }
+
+    /**
+     * @param int $currentMinimum
+     * @param int $stepSize
+     * @return int
+     */
+    private function calculateNextMinimum($currentMinimum, $stepSize)
+    {
+        return ($currentMinimum + $stepSize);
     }
 
     /**
@@ -168,6 +194,11 @@ class ChunkIterator implements Iterator
         return new Chunk($maximum, $minimum);
     }
 
+    private function increaseCurrentStep()
+    {
+        ++$this->currentStep;
+    }
+
     /**
      * @param int $numberOne
      * @param int $numberTwo
@@ -176,5 +207,42 @@ class ChunkIterator implements Iterator
     private function isGreaterThanOrEqual($numberOne, $numberTwo)
     {
         return ($numberOne >= $numberTwo);
+    }
+
+    private function resetCurrentStep()
+    {
+        $this->currentStep = 0;
+    }
+
+    /**
+     * @param null|Chunk $chunk
+     */
+    private function setCurrentChunkOrNull(Chunk $chunk = null)
+    {
+        $this->currentChunk = $chunk;
+    }
+    
+    /**
+     * @param int $stepSize
+     */
+    private function setStepSize($stepSize)
+    {
+        $this->stepSize = (int) $stepSize;
+    }
+
+    /**
+     * @param int $maximum
+     */
+    private function setTotalMaximum($maximum)
+    {
+        $this->totalMaximum = (int) $maximum;
+    }
+
+    /**
+     * @param int $minimum
+     */
+    private function setTotalMinimum($minimum)
+    {
+        $this->totalMinimum = (int) $minimum;
     }
 }

@@ -15,14 +15,14 @@ class ChunkIteratorTest extends AbstractTestCase
     public function provideInvalidInitialParameters()
     {
         return array(
-            'equal maximum and minimum' => array(
-                'maximum'   => 3,
-                'minimum'   => 3,
+            'equal totalMaximum and totalMinimum' => array(
+                'totalMaximum'   => 3,
+                'totalMinimum'   => 3,
                 'step_size' => 1
             ),
-            'minimum is greater than maximum' => array(
-                'maximum'   => 3,
-                'minimum'   => 4,
+            'totalMinimum is greater than totalMaximum' => array(
+                'totalMaximum'   => 3,
+                'totalMinimum'   => 4,
                 'step_size' => 1
             )
         );
@@ -31,7 +31,7 @@ class ChunkIteratorTest extends AbstractTestCase
     /**
      * @dataProvider provideInvalidInitialParameters
      * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage minimum must be less than the maximum
+     * @expectedExceptionMessage totalMinimum must be less than the totalMaximum
      * @param $maximum
      * @param $minimum
      * @param $stepSize
@@ -43,7 +43,7 @@ class ChunkIteratorTest extends AbstractTestCase
 
     /**
      * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage step size must be less than the difference between the provided minimum and maximum
+     * @expectedExceptionMessage step size must be less than the difference between the provided totalMinimum and totalMaximum
      */
     public function testInitiateWithInvalidStepSize()
     {
@@ -90,5 +90,26 @@ class ChunkIteratorTest extends AbstractTestCase
         }
 
         $this->assertEquals(3, $numberOfChunks);
+    }
+
+    public function testThatNoChunkIsEverProcessedMoreThanOnce()
+    {
+        $chunkIterator      = $this->getNewCollectionChunkIterator();
+        $expectedChunks     = array(
+            0 => array(0, 9),
+            1 => array(10, 19),
+            2 => array(20, 29),
+            3 => array(30, 30)
+        );
+
+        $chunkIterator->initialize(30, 0, 10);
+
+        foreach ($chunkIterator as $index => $chunk) {
+            $expectedMaximum    = $expectedChunks[$index][1];
+            $expectedMinimum    = $expectedChunks[$index][0];
+
+            $this->assertEquals($expectedMaximum, $chunk->maximum());
+            $this->assertEquals($expectedMinimum, $chunk->minimum());
+        }
     }
 }
