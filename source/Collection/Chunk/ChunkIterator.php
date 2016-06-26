@@ -52,18 +52,16 @@ class ChunkIterator implements Iterator
      */
     public function initialize($maximum, $minimum, $stepSize)
     {
-        if ($this->isGreaterThanOrEqual($minimum, $maximum)) {
+        if ($this->isLessThan($maximum, $minimum)) {
             throw new InvalidArgumentException(
-                'totalMinimum must be less than the totalMaximum'
+                'provided minimum must be less than or equal the provided maximum'
             );
         }
 
         $minimumIncreasedByOneStepSize = $this->calculateNextMinimum($minimum, $stepSize);
 
-        if ($this->isGreaterThanOrEqual($minimumIncreasedByOneStepSize, $maximum)) {
-            throw new InvalidArgumentException(
-                'step size must be less than the difference between the provided totalMinimum and totalMaximum'
-            );
+        if ($this->isGreaterThan($minimumIncreasedByOneStepSize, $maximum)) {
+            $stepSize = ($maximum - $minimum);
         }
 
         $this->setStepSize($stepSize);
@@ -122,9 +120,14 @@ class ChunkIterator implements Iterator
         $nextChunkOrNull    = null;
         $stepSize           = $this->stepSize;
 
+echo PHP_EOL . 'current minimum: ' . $currentChunk->minimum();
+echo PHP_EOL . 'current maximum: ' . $currentChunk->maximum();
         $nextMaximum    = $this->calculateNextMaximum($currentChunk->maximum(), $stepSize);
         $nextMinimum    = $this->calculateNextMinimum($currentChunk->minimum(), $stepSize);
 
+echo PHP_EOL . 'next minimum: ' . $nextMinimum;
+echo PHP_EOL . 'next maximum: ' . $nextMaximum;
+echo PHP_EOL . 'limit: ' . $limit;
         if (!$this->isGreaterThanOrEqual($nextMinimum, $limit)) {
             if ($this->isGreaterThanOrEqual($nextMaximum, $limit)) {
                 $nextMaximum = $limit;
@@ -132,7 +135,11 @@ class ChunkIterator implements Iterator
 
             $nextChunkOrNull = $this->createNewChunk($nextMaximum, $nextMinimum);
             $this->increaseCurrentStep();
+        } else {
+echo PHP_EOL . '    next minimum: ' . $nextMinimum;
+echo PHP_EOL . '    limit: ' . $limit;
         }
+echo PHP_EOL . 'is chunk ' . (is_null($nextChunkOrNull) ? 'no' : 'yes');
 
         $this->setCurrentChunkOrNull($nextChunkOrNull);
     }
@@ -148,6 +155,11 @@ class ChunkIterator implements Iterator
         $initialMinimum = $this->totalMinimum;
         $stepSize       = $this->stepSize;
         $initialMaximum = $this->calculateInitialMaximum($initialMinimum, $stepSize);
+
+        if ($this->isLessThan($initialMaximum, $initialMinimum)) {
+            $initialMaximum = $initialMinimum;
+        }
+
         $initialChunk   = $this->createNewChunk($initialMaximum, $initialMinimum);
 
         $this->setCurrentChunkOrNull($initialChunk);
@@ -200,13 +212,33 @@ class ChunkIterator implements Iterator
     }
 
     /**
-     * @param int $numberOne
-     * @param int $numberTwo
+     * @param int $biggerNumber
+     * @param int $smallerNumber
      * @return bool
      */
-    private function isGreaterThanOrEqual($numberOne, $numberTwo)
+    private function isGreaterThan($biggerNumber, $smallerNumber)
     {
-        return ($numberOne >= $numberTwo);
+        return ($biggerNumber > $smallerNumber);
+    }
+
+    /**
+     * @param int $smallerNumber
+     * @param int $biggerNumber
+     * @return bool
+     */
+    private function isLessThan($smallerNumber, $biggerNumber)
+    {
+        return ($smallerNumber < $biggerNumber);
+    }
+
+    /**
+     * @param int $biggerOrEqualNumber
+     * @param int $smallerOrEqualNumber
+     * @return bool
+     */
+    private function isGreaterThanOrEqual($biggerOrEqualNumber, $smallerOrEqualNumber)
+    {
+        return ($biggerOrEqualNumber >= $smallerOrEqualNumber);
     }
 
     private function resetCurrentStep()

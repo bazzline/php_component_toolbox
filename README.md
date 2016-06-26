@@ -54,7 +54,11 @@ git clone https://github.com/bazzline/php_component_toolbox .
         * add project overview (travis, scrutinizer, openhub etc.)
         * create examples for the sections
         * implement generator to update "Available Sections"
-    * fixed [issue/3](https://github.com/bazzline/php_component_toolbox/issues/3), now each chunk item will be provided only once
+    * fixed [issue/2](https://github.com/bazzline/php_component_toolbox/issues/2)
+        * minimum and maximum can now be equal
+        * step size can now be greater than the difference between provided minimum and maximum
+    * fixed [issue/3](https://github.com/bazzline/php_component_toolbox/issues/3)
+        * each chunk item will be provided only once
     * updated to phpunit 5.4
 * [1.9.0](https://github.com/bazzline/php_component_toolbox/tree/1.9.0) - released at 06.03.2016
     * added dedicated integration test for php 7.0
