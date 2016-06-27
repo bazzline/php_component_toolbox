@@ -25,6 +25,9 @@ class ChunkIterator implements Iterator
     /** @var int */
     private $stepSize;
 
+    /** @var @var boolean */
+    private $stopOnNextIteration;
+
     /**
      * @param null|int $maximum
      * @param null|int $minimum
@@ -58,9 +61,10 @@ class ChunkIterator implements Iterator
             );
         }
 
-        $minimumIncreasedByOneStepSize = $this->calculateNextMinimum($minimum, $stepSize);
+        $minimumIncreasedByOneStepSize          = $this->calculateNextMinimum($minimum, $stepSize);
+        $minimumPlusStepSizeIsAboveTheMaximum   = $this->isGreaterThan($minimumIncreasedByOneStepSize, $maximum);
 
-        if ($this->isGreaterThan($minimumIncreasedByOneStepSize, $maximum)) {
+        if ($minimumPlusStepSizeIsAboveTheMaximum) {
             $stepSize = ($maximum - $minimum);
         }
 
@@ -128,18 +132,30 @@ echo PHP_EOL . 'current maximum: ' . $currentChunk->maximum();
 echo PHP_EOL . 'next minimum: ' . $nextMinimum;
 echo PHP_EOL . 'next maximum: ' . $nextMaximum;
 echo PHP_EOL . 'limit: ' . $limit;
-        if (!$this->isGreaterThanOrEqual($nextMinimum, $limit)) {
-            if ($this->isGreaterThanOrEqual($nextMaximum, $limit)) {
+        $nextMinimumIsEqualOrBelowTheLimit = $this->isLessThanOrEqual($nextMinimum, $limit);
+
+        if ($nextMinimumIsEqualOrBelowTheLimit) {
+            $nextMaximumIsAboveTheLimit = $this->isGreaterThan($nextMaximum, $limit);
+
+            if ($nextMaximumIsAboveTheLimit) {
                 $nextMaximum = $limit;
             }
 
             $nextChunkOrNull = $this->createNewChunk($nextMaximum, $nextMinimum);
             $this->increaseCurrentStep();
         } else {
+            if ($this->doNotStopOnThisIterator()) {
+                $nextMaximum = $limit;
+                $nextMinimum = $limit;
+                $nextChunkOrNull = $this->createNewChunk($nextMaximum, $nextMinimum);
+                $this->increaseCurrentStep();
+                $this->stopOnNextIteration();
 echo PHP_EOL . '    next minimum: ' . $nextMinimum;
 echo PHP_EOL . '    limit: ' . $limit;
+            }
         }
 echo PHP_EOL . 'is chunk ' . (is_null($nextChunkOrNull) ? 'no' : 'yes');
+echo PHP_EOL;
 
         $this->setCurrentChunkOrNull($nextChunkOrNull);
     }
@@ -162,8 +178,9 @@ echo PHP_EOL . 'is chunk ' . (is_null($nextChunkOrNull) ? 'no' : 'yes');
 
         $initialChunk   = $this->createNewChunk($initialMaximum, $initialMinimum);
 
-        $this->setCurrentChunkOrNull($initialChunk);
+        $this->doNotStopOnNextIteration();
         $this->resetCurrentStep();
+        $this->setCurrentChunkOrNull($initialChunk);
     }
 
     /**
@@ -232,13 +249,13 @@ echo PHP_EOL . 'is chunk ' . (is_null($nextChunkOrNull) ? 'no' : 'yes');
     }
 
     /**
-     * @param int $biggerOrEqualNumber
      * @param int $smallerOrEqualNumber
+     * @param int $biggerOrEqualNumber
      * @return bool
      */
-    private function isGreaterThanOrEqual($biggerOrEqualNumber, $smallerOrEqualNumber)
+    private function isLessThanOrEqual($smallerOrEqualNumber, $biggerOrEqualNumber)
     {
-        return ($biggerOrEqualNumber >= $smallerOrEqualNumber);
+        return ($smallerOrEqualNumber <= $biggerOrEqualNumber);
     }
 
     private function resetCurrentStep()
@@ -276,5 +293,24 @@ echo PHP_EOL . 'is chunk ' . (is_null($nextChunkOrNull) ? 'no' : 'yes');
     private function setTotalMinimum($minimum)
     {
         $this->totalMinimum = (int) $minimum;
+    }
+
+    /**
+     * @return bool
+     * @todo find a better name
+     */
+    private function doNotStopOnThisIterator()
+    {
+        return ($this->stopOnNextIteration !== true);
+    }
+
+    private function stopOnNextIteration()
+    {
+        $this->stopOnNextIteration = true;
+    }
+
+    private function doNotStopOnNextIteration()
+    {
+        $this->stopOnNextIteration = false;
     }
 }

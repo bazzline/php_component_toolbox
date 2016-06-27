@@ -13,6 +13,7 @@ class ChunkIteratorTest extends AbstractTestCase
     {
         $this->testThatNoChunkIsEverProcessedMoreThanOnce();
     }
+
     /**
      * @expectedException \InvalidArgumentException
      * @expectedExceptionMessage provided minimum must be less than or equal the provided maximum
@@ -24,6 +25,24 @@ class ChunkIteratorTest extends AbstractTestCase
         $stepSize   = 1;
 
         $this->getNewCollectionChunkIterator($maximum, $minimum, $stepSize);
+    }
+
+    public function testWithJustOneItemInAChunk()
+    {
+        $chunkIterator          = $this->getNewCollectionChunkIterator();
+        $expectedNumberOfChunks = 1;
+        $numberOfChunks         = 0;
+
+        $chunkIterator->initialize(0, 0, 1);
+
+        foreach ($chunkIterator as $chunk) {
+            $this->assertEquals(0, $chunk->maximum());
+            $this->assertEquals(0, $chunk->minimum());
+
+            ++$numberOfChunks;
+        }
+
+        $this->assertEquals($expectedNumberOfChunks, $numberOfChunks);
     }
 
     public function testInitializeWithEqualMinimumAndMaximum()
@@ -111,6 +130,5 @@ echo PHP_EOL . 'index: ' . $index;
         }
 
         $this->assertEquals($expectedNumberOfChunks, $numberOfChunks);
-        exit();
     }
 }
