@@ -16,17 +16,20 @@ class ChunkIterator implements Iterator
     /** @var int */
     private $currentStep;
 
-    /** @var int */
-    private $totalMaximum;
-
-    /** @var int */
-    private $totalMinimum;
+    /** @var Chunk */
+    private $nextChunk;
 
     /** @var int */
     private $stepSize;
 
     /** @var @var boolean */
     private $stopOnNextIteration;
+
+    /** @var int */
+    private $totalMaximum;
+
+    /** @var int */
+    private $totalMinimum;
 
     /**
      * @param null|int $maximum
@@ -61,6 +64,10 @@ class ChunkIterator implements Iterator
             );
         }
 
+        //@see
+        //  https://github.com/bhearsum/chunkify/blob/master/chunkify/__init__.py
+        //  https://github.com/darrell-pittman/iterator-chunker/blob/master/index.js
+        //
         $minimumIncreasedByOneStepSize          = $this->calculateNextMinimum($minimum, $stepSize);
         $minimumPlusStepSizeIsAboveTheMaximum   = $this->isGreaterThan($minimumIncreasedByOneStepSize, $maximum);
 
@@ -178,6 +185,7 @@ echo PHP_EOL;
 
         $initialChunk   = $this->createNewChunk($initialMaximum, $initialMinimum);
 
+        $this->setNextChunkOrNull($nextChunk);
         $this->doNotStopOnNextIteration();
         $this->resetCurrentStep();
         $this->setCurrentChunkOrNull($initialChunk);
@@ -269,6 +277,14 @@ echo PHP_EOL;
     private function setCurrentChunkOrNull(Chunk $chunk = null)
     {
         $this->currentChunk = $chunk;
+    }
+
+    /**
+     * @param Chunk|null $chunk
+     */
+    private function setNextChunkOrNull(Chunk $chunk = null)
+    {
+        $this->nextChunk = $chunk;
     }
     
     /**
