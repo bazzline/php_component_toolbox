@@ -63,7 +63,7 @@ class ChunkIterator implements Iterator
         $minimum    = new RealNumber($minimum);
         $stepSize   = new RealNumber($stepSize);
 
-        if ($this->isLessThan($maximum, $minimum)) {
+        if ($maximum->isLessThan($minimum)) {
             throw new InvalidArgumentException(
                 'provided minimum must be less than or equal the provided maximum'
             );
@@ -77,7 +77,7 @@ class ChunkIterator implements Iterator
         $minimumPlusStepSizeIsAboveTheMaximum   = $this->isGreaterThan($minimumIncreasedByOneStepSize, $maximum);
 
         if ($minimumPlusStepSizeIsAboveTheMaximum) {
-            $stepSize = ($maximum - $minimum);
+            $stepSize = new RealNumber(($maximum - $minimum));
         }
 
         $this->setStepSize($stepSize);
