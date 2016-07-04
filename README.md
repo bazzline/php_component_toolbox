@@ -54,6 +54,7 @@ git clone https://github.com/bazzline/php_component_toolbox .
         * add project overview (travis, scrutinizer, openhub etc.)
         * create examples for the sections
         * implement generator to update "Available Sections"
+    * added RealNumber
     * fixed [issue/2](https://github.com/bazzline/php_component_toolbox/issues/2)
         * minimum and maximum can now be equal
         * step size can now be greater than the difference between provided minimum and maximum
