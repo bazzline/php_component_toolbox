@@ -6,6 +6,7 @@
 namespace Test\Net\Bazzline\Component\Toolbox\Scalar;
 
 use Net\Bazzline\Component\Toolbox\Scalar\RealNumber;
+use stdClass;
 use Test\Net\Bazzline\Component\Toolbox\AbstractTestCase;
 
 class RealNumberTest extends AbstractTestCase
@@ -23,7 +24,7 @@ class RealNumberTest extends AbstractTestCase
                 'string'
             ),
             'object'    => array(
-                new RealNumber(__LINE__)
+                new stdClass(__LINE__)
             )
         );
     }
@@ -37,6 +38,44 @@ class RealNumberTest extends AbstractTestCase
     public function testConstructorWithInvalidArguments($constructorArgument)
     {
         new RealNumber($constructorArgument);
+    }
+
+    /**
+     * @return array
+     */
+    public function validConstructorArgumentProvider()
+    {
+        return array(
+            'int'       => array(
+                3,
+                3
+            ),
+            'float'     => array(
+                3.3,
+                3.3
+            ),
+            'double'        => array(
+                3.3,
+                3.3
+            ),
+            'real_number'   => array(
+                new RealNumber(3),
+                new RealNumber(3)
+            )
+        );
+    }
+
+    /**
+     * @dataProvider validConstructorArgumentProvider
+     * @param int|float|double|number $constructorArgument
+     * @param int|float|double|number $expectedValue
+     */
+    public function testConstructorWithValidArguments($constructorArgument, $expectedValue)
+    {
+        $number     = new RealNumber($constructorArgument);
+        $isEqual    = ((string) $number == $expectedValue);
+
+        $this->assertTrue($isEqual);
     }
 
     public function testComparison()

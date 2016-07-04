@@ -7,6 +7,7 @@ namespace Net\Bazzline\Component\Toolbox\Collection\Chunk;
 
 use InvalidArgumentException;
 use Iterator;
+use Net\Bazzline\Component\Toolbox\Scalar\RealNumber;
 
 class ChunkIterator implements Iterator
 {
@@ -58,6 +59,10 @@ class ChunkIterator implements Iterator
      */
     public function initialize($maximum, $minimum, $stepSize)
     {
+        $maximum    = new RealNumber($maximum);
+        $minimum    = new RealNumber($minimum);
+        $stepSize   = new RealNumber($stepSize);
+
         if ($this->isLessThan($maximum, $minimum)) {
             throw new InvalidArgumentException(
                 'provided minimum must be less than or equal the provided maximum'

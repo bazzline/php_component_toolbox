@@ -21,6 +21,8 @@ class RealNumber
     {
         if (is_numeric($value)) {
             $this->value = $value;
+        } else if ($value instanceof RealNumber) {
+            $this->value = (string) $value;
         } else {
             throw new InvalidArgumentException(
                 'provided value is not a number'
@@ -33,7 +35,7 @@ class RealNumber
      */
     public function __toString()
     {
-        return $this->value;
+        return (string) $this->value;
     }
 
     /**
