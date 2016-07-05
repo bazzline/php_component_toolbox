@@ -15,7 +15,7 @@ class RealNumber
     /**
      * Number constructor.
      *
-     * @param int|float|double $value
+     * @param int|float|double|RealNumber $value
      */
     public function __construct($value)
     {
@@ -86,5 +86,23 @@ class RealNumber
     public function isLessThanOrEqual(RealNumber $number)
     {
         return ($this <= $number);
+    }
+
+    /**
+     * @param RealNumber $number
+     * @return RealNumber
+     */
+    public function minus(RealNumber $number)
+    {
+        return new self($this - $number);
+    }
+
+    /**
+     * @param RealNumber $number
+     * @return RealNumber
+     */
+    public function plus(RealNumber $number)
+    {
+        return new self($this + $number);
     }
 }
