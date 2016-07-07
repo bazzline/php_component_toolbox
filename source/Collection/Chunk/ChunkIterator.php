@@ -59,6 +59,9 @@ class ChunkIterator implements Iterator
      */
     public function initialize($maximum, $minimum, $stepSize)
     {
+        //validates input
+        //  min >= min -> exception
+        //sets initial minimum, initial maximum, total maximum and step size
         $maximum    = new RealNumber($maximum);
         $minimum    = new RealNumber($minimum);
         $stepSize   = new RealNumber($stepSize);
@@ -131,6 +134,8 @@ class ChunkIterator implements Iterator
      */
     public function next()
     {
+        //calculates next chunk based on current chunk, step size and total maximum
+        //sets next chunk as current chunk (or null or we move a "chunk->maxinum > $totalMaxmimum" logic into the valid method
         $currentChunk       = $this->currentChunk;
         $limit              = $this->totalMaximum;
         $nextChunkOrNull    = null;
@@ -180,12 +185,19 @@ echo PHP_EOL;
      */
     public function rewind()
     {
+        //resets current step
+        //creates current chunk based on initial minimum, step size and total maximum
         $initialMinimum = $this->totalMinimum;
         $stepSize       = $this->stepSize;
         $initialMaximum = $this->calculateInitialMaximum($initialMinimum, $stepSize);
 
         if ($initialMaximum->isLessThan($initialMinimum)) {
             $initialMaximum = $initialMinimum;
+            $nextChunk      = null;
+        } else {
+            $nextMinimum    = $this->calculateNextMinimum($initialMinimum, $stepSize);
+            $nextMaximum    = $this->calculateNextMaximum($initialMaximum, $stepSize);
+            $nextChunk      = $this->createNewChunk($nextMaximum, $nextMinimum);
         }
 
         $initialChunk   = $this->createNewChunk($initialMaximum, $initialMinimum);
