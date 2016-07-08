@@ -24,18 +24,6 @@ class Chunk
     }
 
     /**
-     * @param Chunk $chunk
-     * @return bool
-     */
-    public function isEqualTo(Chunk $chunk)
-    {
-        return (
-            ($this->maximum == $chunk->maximum())
-            && ($this->minimum == $chunk->minimum())
-        );
-    }
-
-    /**
      * @return int
      */
     public function minimum()

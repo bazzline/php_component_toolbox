@@ -78,6 +78,17 @@ class RealNumberTest extends AbstractTestCase
         $this->assertTrue($isEqual);
     }
 
+    public function testToScalar()
+    {
+        $number = new RealNumber(__LINE__);
+
+        $areEqual       = ($number->__toString() == $number->toScalar());
+        $areIdentical   = ($number->__toString() === $number->toScalar());
+        
+        $this->assertTrue($areEqual);
+        $this->assertFalse($areIdentical);
+    }
+
     public function testComparison()
     {
         $three  = new RealNumber(3);

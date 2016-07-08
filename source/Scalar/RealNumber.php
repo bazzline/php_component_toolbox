@@ -31,6 +31,14 @@ class RealNumber
     }
 
     /**
+     * @return int|float|double
+     */
+    public function toScalar()
+    {
+        return $this->value;
+    }
+
+    /**
      * @return float|int|string
      */
     public function __toString()
@@ -94,7 +102,7 @@ class RealNumber
      */
     public function minus(RealNumber $number)
     {
-        return new self($this - $number);
+        return new self($this->value - $number->value);
     }
 
     /**
@@ -103,6 +111,6 @@ class RealNumber
      */
     public function plus(RealNumber $number)
     {
-        return new self($this + $number);
+        return new self($this->value + $number->value);
     }
 }
