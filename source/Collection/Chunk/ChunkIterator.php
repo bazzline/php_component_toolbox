@@ -68,9 +68,9 @@ class ChunkIterator implements Iterator
     public function initialize($totalMaximum, $initialMinimum, $stepSize)
     {
         //begin of input validation
-        $initialMinimum     = new RealNumber($initialMinimum);
-        $stepSize           = new RealNumber($stepSize);
-        $totalMaximum       = new RealNumber($totalMaximum);
+        $initialMinimum     = $this->createNewRealNumber($initialMinimum);
+        $stepSize           = $this->createNewRealNumber($stepSize);
+        $totalMaximum       = $this->createNewRealNumber($totalMaximum);
 
         if ($totalMaximum->isLessThan($initialMinimum)) {
             throw new InvalidArgumentException(
@@ -147,9 +147,10 @@ class ChunkIterator implements Iterator
         //end of dependencies
 
         //begin of dynamic dependencies
-        $currentMinimum = new RealNumber($currentChunk->maximum());
+        $currentMaximum = $this->createNewRealNumber($currentChunk->maximum());
+        $currentMinimum = $this->createNewRealNumber($currentChunk->minimum());
         $nextMaximum    = $this->calculateNextMaximum($currentMinimum, $stepSize);
-        $nextMinimum    = $this->calculateNextMinimum($currentMinimum, $stepSize);
+        $nextMinimum    = $currentMinimum->plus(new RealNumber(1));
         //end of dynamic dependencies
 
         //begin of business logic
@@ -226,7 +227,7 @@ echo PHP_EOL;
         //end of dependencies
 
         //begin of dynamic dependencies
-        $nextMaximum    = $this->calculateNextMinimum($initialMinimum, $stepSize);
+        $nextMaximum    = $this->calculateInitialMaximum($initialMinimum, $stepSize);
         $currentChunk   = $this->createNewChunk($nextMaximum, $initialMinimum);
         //end of dynamic dependencies
 
@@ -259,13 +260,13 @@ echo PHP_EOL;
     }
 
     /**
-     * @param RealNumber $minimum
+     * @param RealNumber $initialMinimum
      * @param RealNumber $stepSize
      * @return RealNumber
      */
-    private function calculateInitialMaximum(RealNumber $minimum, RealNumber $stepSize)
+    private function calculateInitialMaximum(RealNumber $initialMinimum, RealNumber $stepSize)
     {
-        return ($this->calculateNextMaximum($minimum, $stepSize)->minus(new RealNumber(1)));
+        return ($this->calculateNextMaximum($initialMinimum, $stepSize)->minus($this->createNewRealNumber(1)));
     }
 
     /**
@@ -285,7 +286,7 @@ echo PHP_EOL;
      */
     private function calculateNextMinimum(RealNumber $currentMinimum, RealNumber $stepSize)
     {
-        return ($currentMinimum->plus($stepSize)->minus(new RealNumber(1)));
+        return ($currentMinimum->plus($stepSize));
     }
 
     /**
@@ -296,6 +297,15 @@ echo PHP_EOL;
     private function createNewChunk(RealNumber $maximum, RealNumber $minimum)
     {
         return new Chunk((string) $maximum, (string) $minimum);
+    }
+
+    /**
+     * @param $number
+     * @return RealNumber
+     */
+    private function createNewRealNumber($number)
+    {
+        return new RealNumber($number);
     }
 
     private function increaseCurrentStep()
