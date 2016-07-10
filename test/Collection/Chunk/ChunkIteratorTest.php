@@ -123,6 +123,8 @@ echo PHP_EOL . 'index: ' . $index;
             $expectedMaximum    = $expectedChunks[$index][1];
             $expectedMinimum    = $expectedChunks[$index][0];
 
+            echo PHP_EOL . 'maximum (expected/current): ' . $expectedMaximum . '/' . $chunk->maximum();
+            echo PHP_EOL . 'minimum (expected/current): ' . $expectedMinimum . '/' . $chunk->minimum();
             $this->assertEquals($expectedMaximum, $chunk->maximum());
             $this->assertEquals($expectedMinimum, $chunk->minimum());
 

@@ -80,7 +80,7 @@ class ChunkIterator implements Iterator
         //end of input validation
 
         //begin of input value adaptation
-        $nextMaximum                            = $this->calculateNextMinimum($initialMinimum, $stepSize);
+        $nextMaximum                            = $this->calculateNextMaximum($initialMinimum, $stepSize);
         $nextMaximumIsGreaterThanTotalMaximum   = $nextMaximum->isGreaterThan($totalMaximum);
 
         if ($nextMaximumIsGreaterThanTotalMaximum) {
@@ -141,16 +141,20 @@ class ChunkIterator implements Iterator
     public function next()
     {
         //begin of dependencies
-        $currentChunk       = $this->current();
+        $currentChunk       = $this->currentChunk;
         $stepSize           = $this->stepSize;
         $totalMaximum       = $this->totalMaximum;
         //end of dependencies
 
         //begin of dynamic dependencies
-        $currentMaximum = $this->createNewRealNumber($currentChunk->maximum());
         $currentMinimum = $this->createNewRealNumber($currentChunk->minimum());
-        $nextMaximum    = $this->calculateNextMaximum($currentMinimum, $stepSize);
-        $nextMinimum    = $currentMinimum->plus(new RealNumber(1));
+        $currentMaximum = $this->createNewRealNumber($currentChunk->maximum());
+        $nextMinimum    = $this->calculateNextMinimum($currentMaximum);
+        $nextMaximum    = $this->calculateNextMaximum($currentMaximum, $stepSize);
+        echo PHP_EOL . 'current minimum: ' . $currentMinimum;
+        echo PHP_EOL . 'current maxinum: ' . $currentMaximum;
+        echo PHP_EOL . 'next minimum: ' . $nextMinimum;
+        echo PHP_EOL . 'next maximum: ' . $nextMaximum;
         //end of dynamic dependencies
 
         //begin of business logic
@@ -161,7 +165,7 @@ class ChunkIterator implements Iterator
                 $nextMaximum = $totalMaximum;
             }
 
-            $nextChunk = $this->createNewChunk($nextMaximum, $currentMinimum);
+            $nextChunk = $this->createNewChunk($nextMaximum, $nextMinimum);
         }
         //end of business logic
 
@@ -281,12 +285,11 @@ echo PHP_EOL;
 
     /**
      * @param RealNumber $currentMinimum
-     * @param RealNumber $stepSize
      * @return RealNumber
      */
-    private function calculateNextMinimum(RealNumber $currentMinimum, RealNumber $stepSize)
+    private function calculateNextMinimum(RealNumber $currentMinimum)
     {
-        return ($currentMinimum->plus($stepSize));
+        return ($currentMinimum->plus($this->createNewRealNumber(1)));
     }
 
     /**
