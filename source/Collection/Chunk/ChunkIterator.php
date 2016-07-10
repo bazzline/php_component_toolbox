@@ -152,16 +152,18 @@ class ChunkIterator implements Iterator
         $nextMinimum    = $this->calculateNextMinimum($currentMaximum);
         $nextMaximum    = $this->calculateNextMaximum($currentMaximum, $stepSize);
         echo PHP_EOL . 'current minimum: ' . $currentMinimum;
-        echo PHP_EOL . 'current maxinum: ' . $currentMaximum;
+        echo PHP_EOL . 'current maximum: ' . $currentMaximum;
         echo PHP_EOL . 'next minimum: ' . $nextMinimum;
         echo PHP_EOL . 'next maximum: ' . $nextMaximum;
         //end of dynamic dependencies
 
         //begin of business logic
         if ($nextMinimum->isGreaterThan($totalMaximum)) {
+            echo PHP_EOL . 'next minimum is greater current maximum';
             $nextChunk = null;
         } else {
             if ($nextMaximum->isGreaterThan($totalMaximum)) {
+                echo PHP_EOL . 'next maximum is greater current maximum';
                 $nextMaximum = $totalMaximum;
             }
 
@@ -169,6 +171,7 @@ class ChunkIterator implements Iterator
         }
         //end of business logic
 
+        echo PHP_EOL . 'next chunk will be ' . (is_null($nextChunk) ? 'null' : 'not null');
         $this->increaseCurrentStep();
         $this->setCurrentChunkOrNull($nextChunk);
 
@@ -231,8 +234,20 @@ echo PHP_EOL;
         //end of dependencies
 
         //begin of dynamic dependencies
-        $nextMaximum    = $this->calculateInitialMaximum($initialMinimum, $stepSize);
-        $currentChunk   = $this->createNewChunk($nextMaximum, $initialMinimum);
+        $nextMaximum = $this->calculateInitialMaximum($initialMinimum, $stepSize);
+
+        echo PHP_EOL . 'initial minimum: ' . $initialMinimum . ' next maximum: ' . $nextMaximum;
+        //to support iteration from 0 to 0 (one step)
+        if ($initialMinimum->isEqual($this->createNewRealNumber(0))) {
+            //?
+            //$nextMaximum = $this->createNewRealNumber(0);
+        //to support minimum and maximum are equal (one step)
+        } else if ($nextMaximum->isLessThan($initialMinimum)) {
+            $nextMaximum = $initialMinimum;
+        }
+
+        echo PHP_EOL . 'initial minimum: ' . $initialMinimum . ' next maximum: ' . $nextMaximum;
+        $currentChunk = $this->createNewChunk($nextMaximum, $initialMinimum);
         //end of dynamic dependencies
 
         $this->initialCurrentStepSize();

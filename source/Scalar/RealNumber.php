@@ -6,6 +6,7 @@
 namespace Net\Bazzline\Component\Toolbox\Scalar;
 
 use InvalidArgumentException;
+use SebastianBergmann\CodeCoverage\Report\PHP;
 
 class RealNumber
 {
@@ -83,7 +84,7 @@ class RealNumber
      */
     public function isLessThan(RealNumber $number)
     {
-        return ($this < $number);
+        return ($this->toScalar() < $number->toScalar());
     }
 
     /**
