@@ -153,7 +153,7 @@ class MergeTest extends AbstractTestCase
     ) {
         $merger =  $this->getHashMapMerge();
 
-        $this->assertEquals(
+        self::assertEquals(
             $expectedMergeResult,
             $merger(
                 $arrayToMergeInto,

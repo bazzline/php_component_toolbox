@@ -15,13 +15,13 @@ use Net\Bazzline\Component\Toolbox\Process\Experiment;
 use Net\Bazzline\Component\Toolbox\Scalar\Text;
 use Net\Bazzline\Component\Toolbox\Time\Stopwatch;
 use Net\Bazzline\Component\Toolbox\Time\Timestamp;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class AbstractTestCase
  * @package Test\Net\Bazzline\Component\Toolbox
  */
-abstract class AbstractTestCase extends PHPUnit_Framework_TestCase
+abstract class AbstractTestCase extends TestCase
 {
     /**
      * @param int $maximum

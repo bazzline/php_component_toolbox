@@ -24,7 +24,7 @@ class RealNumberTest extends AbstractTestCase
                 'string'
             ],
             'object'    => [
-                new stdClass(__LINE__)
+                new stdClass()
             ]
         ];
     }
@@ -48,7 +48,7 @@ class RealNumberTest extends AbstractTestCase
      */
     public function validConstructorArgumentProvider()
     {
-        return array(
+        return [
             'int'       => [
                 3,
                 3
@@ -75,16 +75,20 @@ class RealNumberTest extends AbstractTestCase
      * @param int|float|double|number $constructorArgument
      * @param int|float|double|number $expectedValue
      * @throws \InvalidArgumentException
-     * @throws \PHPUnit_Framework_AssertionFailedError
+     * @throws \PHPUnit\Framework\AssertionFailedError
      */
     public function testConstructorWithValidArguments($constructorArgument, $expectedValue)
     {
         $number     = new RealNumber($constructorArgument);
         $isEqual    = ((string) $number == $expectedValue);
 
-        $this->assertTrue($isEqual);
+        self::assertTrue($isEqual);
     }
 
+    /**
+     * @throws \InvalidArgumentException
+     * @throws \PHPUnit\Framework\AssertionFailedError
+     */
     public function testToScalar()
     {
         $number = new RealNumber(__LINE__);
@@ -92,34 +96,38 @@ class RealNumberTest extends AbstractTestCase
         $areEqual       = ($number->__toString() == $number->toScalar());
         $areIdentical   = ($number->__toString() === $number->toScalar());
         
-        $this->assertTrue($areEqual);
-        $this->assertFalse($areIdentical);
+        self::assertTrue($areEqual);
+        self::assertFalse($areIdentical);
     }
 
+    /**
+     * @throws \InvalidArgumentException
+     * @throws \PHPUnit\Framework\AssertionFailedError
+     */
     public function testComparison()
     {
         $three  = new RealNumber(3);
         $four   = new RealNumber(4);
 
-        $this->assertFalse($three->isEqual($four));
+        self::assertFalse($three->isEqual($four));
 
-        $this->assertFalse($three->isGreaterThan($four));
-        $this->assertFalse($three->isGreaterThanOrEqual($four));
+        self::assertFalse($three->isGreaterThan($four));
+        self::assertFalse($three->isGreaterThanOrEqual($four));
 
-        $this->assertTrue($four->isGreaterThan($three));
-        $this->assertTrue($four->isGreaterThanOrEqual($three));
+        self::assertTrue($four->isGreaterThan($three));
+        self::assertTrue($four->isGreaterThanOrEqual($three));
 
-        $this->assertFalse($four->isLessThan($three));
-        $this->assertFalse($four->isLessThanOrEqual($three));
+        self::assertFalse($four->isLessThan($three));
+        self::assertFalse($four->isLessThanOrEqual($three));
 
-        $this->assertTrue($three->isLessThan($four));
-        $this->assertTrue($three->isLessThanOrEqual($four));
+        self::assertTrue($three->isLessThan($four));
+        self::assertTrue($three->isLessThanOrEqual($four));
 
-        $this->assertTrue($four->isEqual($four));
-        $this->assertTrue($four->isGreaterThanOrEqual($four));
-        $this->assertTrue($four->isLessThanOrEqual($four));
+        self::assertTrue($four->isEqual($four));
+        self::assertTrue($four->isGreaterThanOrEqual($four));
+        self::assertTrue($four->isLessThanOrEqual($four));
 
-        $this->assertFalse($four->isGreaterThan($four));
-        $this->assertFalse($four->isLessThan($four));
+        self::assertFalse($four->isGreaterThan($four));
+        self::assertFalse($four->isLessThan($four));
     }
 }

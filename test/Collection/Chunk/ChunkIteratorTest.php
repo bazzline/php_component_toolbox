@@ -35,13 +35,13 @@ class ChunkIteratorTest extends AbstractTestCase
         $chunkIterator->initialize(0, 0, 1);
 
         foreach ($chunkIterator as $chunk) {
-            $this->assertEquals(0, $chunk->maximum());
-            $this->assertEquals(0, $chunk->minimum());
+            self::assertEquals(0, $chunk->maximum());
+            self::assertEquals(0, $chunk->minimum());
 
             ++$numberOfChunks;
         }
 
-        $this->assertEquals($expectedNumberOfChunks, $numberOfChunks);
+        self::assertEquals($expectedNumberOfChunks, $numberOfChunks);
     }
 
     public function testInitializeWithEqualMinimumAndMaximum()
@@ -55,8 +55,8 @@ class ChunkIteratorTest extends AbstractTestCase
 
         $currentChunk = $chunkIterator->current();
 
-        $this->assertEquals($maximum, $currentChunk->maximum());
-        $this->assertEquals($minimum, $currentChunk->minimum());
+        self::assertEquals($maximum, $currentChunk->maximum());
+        self::assertEquals($minimum, $currentChunk->minimum());
     }
 
     public function testWithMultipleSteps()
@@ -68,13 +68,13 @@ class ChunkIteratorTest extends AbstractTestCase
         $chunkIterator  = $this->getNewCollectionChunkIterator($maximum, $minimum, $stepSize);
 
         foreach ($chunkIterator as $chunk) {
-            $this->assertTrue(($maximum > $chunk->minimum()));
-            $this->assertTrue(($minimum <= $chunk->minimum()));
-            $this->assertTrue(($maximum >= $chunk->maximum()));
+            self::assertTrue(($maximum > $chunk->minimum()));
+            self::assertTrue(($minimum <= $chunk->minimum()));
+            self::assertTrue(($maximum >= $chunk->maximum()));
             ++$numberOfChunks;
         }
 
-        $this->assertEquals(3, $numberOfChunks);
+        self::assertEquals(3, $numberOfChunks);
     }
 
     public function testWithMultipleStepsByCallingInitialize()
@@ -88,13 +88,13 @@ class ChunkIteratorTest extends AbstractTestCase
         $chunkIterator->initialize($maximum, $minimum, $stepSize);
 
         foreach ($chunkIterator as $chunk) {
-            $this->assertTrue(($maximum > $chunk->minimum()));
-            $this->assertTrue(($minimum <= $chunk->minimum()));
-            $this->assertTrue(($maximum >= $chunk->maximum()));
+            self::assertTrue(($maximum > $chunk->minimum()));
+            self::assertTrue(($minimum <= $chunk->minimum()));
+            self::assertTrue(($maximum >= $chunk->maximum()));
             ++$numberOfChunks;
         }
 
-        $this->assertEquals(3, $numberOfChunks);
+        self::assertEquals(3, $numberOfChunks);
     }
 
     public function testWithJustOneItem()
@@ -121,12 +121,12 @@ class ChunkIteratorTest extends AbstractTestCase
             $expectedMaximum    = $expectedChunks[$index][1];
             $expectedMinimum    = $expectedChunks[$index][0];
 
-            $this->assertEquals($expectedMaximum, $chunk->maximum());
-            $this->assertEquals($expectedMinimum, $chunk->minimum());
+            self::assertEquals($expectedMaximum, $chunk->maximum());
+            self::assertEquals($expectedMinimum, $chunk->minimum());
 
             ++$numberOfChunks;
         }
 
-        $this->assertEquals($expectedNumberOfChunks, $numberOfChunks);
+        self::assertEquals($expectedNumberOfChunks, $numberOfChunks);
     }
 }

@@ -13,8 +13,8 @@ class StopwatchTest extends AbstractTestCase
     {
         $stopwatch = $this->getNewStopwatchTime();
 
-        $this->assertEquals(0, $stopwatch->stop());
-        $this->assertEquals(0, $stopwatch->getRuntime());
+        self::assertEquals(0, $stopwatch->stop());
+        self::assertEquals(0, $stopwatch->getRuntime());
     }
 
     public function testStopAndGetRuntimeAfterStartingTheWatch()
@@ -24,7 +24,7 @@ class StopwatchTest extends AbstractTestCase
         $stopwatch->start();
         $stopwatch->stop();
 
-        $this->assertGreaterThanOrEqual(0, $stopwatch->stop());
-        $this->assertGreaterThanOrEqual(0, $stopwatch->getRuntime());
+        self::assertGreaterThanOrEqual(0, $stopwatch->stop());
+        self::assertGreaterThanOrEqual(0, $stopwatch->getRuntime());
     }
 }

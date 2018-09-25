@@ -41,11 +41,11 @@ class EnumerableDeferredTest extends AbstractTestCase
         //we have to unset the process to trigger the destructor method
         unset($processor);
 
-        $this->assertEquals(5, $finisherIterator);
-        $this->assertEquals(5, $initializerIterator);
-        $this->assertEquals(44, $processIterator);
+        self::assertEquals(5, $finisherIterator);
+        self::assertEquals(5, $initializerIterator);
+        self::assertEquals(44, $processIterator);
         foreach ($argumentCollection as $arguments) {
-            $this->assertEquals($arguments, ['foo', 'bar']);
+            self::assertEquals($arguments, ['foo', 'bar']);
         }
     }
 
@@ -81,11 +81,11 @@ class EnumerableDeferredTest extends AbstractTestCase
         //we have to unset the process to trigger the destructor method
         unset($processor);
 
-        $this->assertEquals(5, $finisherIterator);
-        $this->assertEquals(5, $initializerIterator);
-        $this->assertEquals(44, $processIterator);
+        self::assertEquals(5, $finisherIterator);
+        self::assertEquals(5, $initializerIterator);
+        self::assertEquals(44, $processIterator);
         foreach ($argumentCollection as $arguments) {
-            $this->assertEquals($arguments, ['foo', 'bar']);
+            self::assertEquals($arguments, ['foo', 'bar']);
         }
     }
 }

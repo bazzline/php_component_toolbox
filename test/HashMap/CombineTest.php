@@ -62,6 +62,6 @@ class CombineTest extends AbstractTestCase
     ) {
         $combine = $this->getHashMapCombine();
 
-        $this->assertEquals($expectedResult, $combine($keys, $values));
+        self::assertEquals($expectedResult, $combine($keys, $values));
     }
 }

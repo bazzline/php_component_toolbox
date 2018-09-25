@@ -15,6 +15,9 @@ use Exception;
  */
 class ExperimentTest extends AbstractTestCase
 {
+    /**
+     * @throws \InvalidArgumentException
+     */
     public function testIsSuccessfulOnLastRun()
     {
         $iterator           = 0;
@@ -35,9 +38,21 @@ class ExperimentTest extends AbstractTestCase
         };
         $expectedWasSuccessful = true;
 
-        $this->tryOutExperiment($trial, $times, $wait, $onSuccess, $onFailure, $expectedWasSuccessful, $successfulExecuted, $fallbackExecuted);
+        $this->tryOutExperiment(
+            $trial,
+            $times,
+            $wait,
+            $onSuccess,
+            $onFailure,
+            $expectedWasSuccessful,
+            $successfulExecuted,
+            $fallbackExecuted
+        );
     }
 
+    /**
+     * @throws \InvalidArgumentException
+     */
     public function testIsSuccessfulOnFirstRun()
     {
         $iterator           = 0;
@@ -58,9 +73,21 @@ class ExperimentTest extends AbstractTestCase
         };
         $expectedWasSuccessful = true;
 
-        $this->tryOutExperiment($trial, $times, $wait, $onSuccess, $onFailure, $expectedWasSuccessful, $successfulExecuted, $fallbackExecuted);
+        $this->tryOutExperiment(
+            $trial,
+            $times,
+            $wait,
+            $onSuccess,
+            $onFailure,
+            $expectedWasSuccessful,
+            $successfulExecuted,
+            $fallbackExecuted
+        );
     }
 
+    /**
+     * @throws \InvalidArgumentException
+     */
     public function testIsNeverSuccessfulByReturningFalse()
     {
         $successfulExecuted = false;
@@ -79,9 +106,21 @@ class ExperimentTest extends AbstractTestCase
         };
         $expectedWasSuccessful = false;
 
-        $this->tryOutExperiment($trial, $times, $wait, $onSuccess, $onFailure, $expectedWasSuccessful, $successfulExecuted, $fallbackExecuted);
+        $this->tryOutExperiment(
+            $trial,
+            $times,
+            $wait,
+            $onSuccess,
+            $onFailure,
+            $expectedWasSuccessful,
+            $successfulExecuted,
+            $fallbackExecuted
+        );
     }
 
+    /**
+     * @throws \InvalidArgumentException
+     */
     public function testIsNeverSuccessfulByThrowingException()
     {
         $successfulExecuted = false;
@@ -102,7 +141,16 @@ class ExperimentTest extends AbstractTestCase
         };
         $expectedWasSuccessful = false;
 
-        $this->tryOutExperiment($trial, $times, $wait, $onSuccess, $onFailure, $expectedWasSuccessful, $successfulExecuted, $fallbackExecuted);
+        $this->tryOutExperiment(
+            $trial,
+            $times,
+            $wait,
+            $onSuccess,
+            $onFailure,
+            $expectedWasSuccessful,
+            $successfulExecuted,
+            $fallbackExecuted
+        );
     }
 
 
@@ -118,7 +166,6 @@ class ExperimentTest extends AbstractTestCase
      * @param bool $fallbackExecuted
      * @throws \Exception
      * @throws \InvalidArgumentException
-     * @throws \PHPUnit_Framework_AssertionFailedError
      */
     private function tryOutExperiment(
         $trial,
@@ -141,17 +188,17 @@ class ExperimentTest extends AbstractTestCase
         );
         $wasSuccessful = $experiment->andTryIt();
 
-        $this->assertEquals(
+        self::assertEquals(
             $expectedWasSuccessful,
             $wasSuccessful
         );
 
         if ($expectedWasSuccessful) {
-            $this->assertFalse($fallbackExecuted);
-            $this->assertTrue($successfulExecuted);
+            self::assertFalse($fallbackExecuted);
+            self::assertTrue($successfulExecuted);
         } else {
-            $this->assertFalse($successfulExecuted);
-            $this->assertTrue($fallbackExecuted);
+            self::assertFalse($successfulExecuted);
+            self::assertTrue($fallbackExecuted);
         }
     }
 }

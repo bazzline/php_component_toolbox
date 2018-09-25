@@ -14,8 +14,8 @@ class TimestampTest extends AbstractTestCase
         $timestamp          = $this->getNewTimestamp();
         $currentTimestamp   = time();
 
-        $this->assertGreaterThanOrEqual($currentTimestamp, $timestamp->getCurrentTimestamp());
-        $this->assertGreaterThanOrEqual($currentTimestamp, $timestamp());
-        $this->assertGreaterThanOrEqual($currentTimestamp, (string) $timestamp);
+        self::assertGreaterThanOrEqual($currentTimestamp, $timestamp->getCurrentTimestamp());
+        self::assertGreaterThanOrEqual($currentTimestamp, $timestamp());
+        self::assertGreaterThanOrEqual($currentTimestamp, (string) $timestamp);
     }
 }

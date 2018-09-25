@@ -20,7 +20,7 @@ class TextTest extends AbstractTestCase
     {
         $text = $this->getNewText();
 
-        $this->assertEquals(
+        self::assertEquals(
             $expectedResult,
             $text->contains($haystack, $needle, $searchCaseInsensitive)
         );
@@ -37,7 +37,7 @@ class TextTest extends AbstractTestCase
     {
         $text = $this->getNewText();
 
-        $this->assertEquals(
+        self::assertEquals(
             $expectedResult,
             $text->endsWith($haystack, $needle, $searchCaseInsensitive)
         );
@@ -54,7 +54,7 @@ class TextTest extends AbstractTestCase
     {
         $text = $this->getNewText();
 
-        $this->assertEquals(
+        self::assertEquals(
             $expectedResult,
             $text->startsWith($haystack, $needle, $searchCaseInsensitive)
         );
