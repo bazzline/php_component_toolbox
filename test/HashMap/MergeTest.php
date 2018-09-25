@@ -145,8 +145,12 @@ class MergeTest extends AbstractTestCase
      * @param bool $doNotPreserveNumericKeys
      * @param array $expectedMergeResult
      */
-    public function testMergeAsInvokable(array $arrayToMergeInto, array $arrayToMergeFrom, $doNotPreserveNumericKeys, array $expectedMergeResult)
-    {
+    public function testMergeAsInvokable(
+        array $arrayToMergeInto,
+        array $arrayToMergeFrom,
+        bool $doNotPreserveNumericKeys,
+        array $expectedMergeResult
+    ) {
         $merger =  $this->getHashMapMerge();
 
         $this->assertEquals($expectedMergeResult, $merger($arrayToMergeInto, $arrayToMergeFrom, $doNotPreserveNumericKeys));

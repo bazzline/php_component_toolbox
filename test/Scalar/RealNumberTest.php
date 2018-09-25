@@ -40,8 +40,11 @@ class RealNumberTest extends AbstractTestCase
         new RealNumber($constructorArgument);
     }
 
+
+
     /**
      * @return array
+     * @throws \InvalidArgumentException
      */
     public function validConstructorArgumentProvider()
     {
@@ -65,10 +68,14 @@ class RealNumberTest extends AbstractTestCase
         );
     }
 
+
+
     /**
      * @dataProvider validConstructorArgumentProvider
      * @param int|float|double|number $constructorArgument
      * @param int|float|double|number $expectedValue
+     * @throws \InvalidArgumentException
+     * @throws \PHPUnit_Framework_AssertionFailedError
      */
     public function testConstructorWithValidArguments($constructorArgument, $expectedValue)
     {

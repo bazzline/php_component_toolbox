@@ -11,8 +11,8 @@ class EnumerableDeferredTest extends AbstractTestCase
 {
     public function testIncrease()
     {
-        $argumentCollection     = array();
-        $collection             = array();
+        $argumentCollection     = [];
+        $collection             = [];
         $finisherIterator       = 0;
         $initializerIterator    = 0;
         $processIterator        = 0;
@@ -29,13 +29,13 @@ class EnumerableDeferredTest extends AbstractTestCase
         };
 
         for ($iterator = 0; $iterator < 44; ++$iterator) {
-            $collection[] = array('foo', 'bar');
+            $collection[] = ['foo', 'bar'];
         }
 
         $processor = $this->getNewEnumerableDeferredProcess($initializer, $processor, $finisher, 10);
 
         foreach ($collection as $entry) {
-            call_user_func_array(array($processor, 'increase'), $entry);
+            call_user_func_array([$processor, 'increase'], $entry);
         }
 
         //we have to unset the process to trigger the destructor method
@@ -45,14 +45,14 @@ class EnumerableDeferredTest extends AbstractTestCase
         $this->assertEquals(5, $initializerIterator);
         $this->assertEquals(44, $processIterator);
         foreach ($argumentCollection as $arguments) {
-            $this->assertEquals($arguments, array('foo', 'bar'));
+            $this->assertEquals($arguments, ['foo', 'bar']);
         }
     }
 
     public function testInvoke()
     {
-        $argumentCollection     = array();
-        $collection             = array();
+        $argumentCollection     = [];
+        $collection             = [];
         $finisherIterator       = 0;
         $initializerIterator    = 0;
         $processIterator        = 0;
@@ -69,7 +69,7 @@ class EnumerableDeferredTest extends AbstractTestCase
         };
 
         for ($iterator = 0; $iterator < 44; ++$iterator) {
-            $collection[] = array('foo', 'bar');
+            $collection[] = ['foo', 'bar'];
         }
 
         $processor = $this->getNewEnumerableDeferredProcess($initializer, $processor, $finisher, 10);
@@ -85,7 +85,7 @@ class EnumerableDeferredTest extends AbstractTestCase
         $this->assertEquals(5, $initializerIterator);
         $this->assertEquals(44, $processIterator);
         foreach ($argumentCollection as $arguments) {
-            $this->assertEquals($arguments, array('foo', 'bar'));
+            $this->assertEquals($arguments, ['foo', 'bar']);
         }
     }
 }

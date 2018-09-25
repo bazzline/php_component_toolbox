@@ -13,18 +13,12 @@ class Stopwatch
     /** @var int */
     private $timeStampOfStart = 0;
 
-    /**
-     * @return int
-     */
-    public function getRuntime()
+    public function getRuntime(): int
     {
         return $this->runtimeInSeconds;
     }
 
-    /**
-     * @return int
-     */
-    public function stop()
+    public function stop(): int
     {
         if (is_null($this->runtimeInSeconds)) {
             $this->calculateRuntime();
@@ -44,13 +38,10 @@ class Stopwatch
         return $this;
     }
 
-    /**
-     * @param int $start
-     * @param int $end
-     * @return int
-     */
-    private function calculateDifference($start, $end)
-    {
+    private function calculateDifference(
+        int $start,
+        int $end
+    ): int {
         return ($end - $start);
     }
 
@@ -62,10 +53,7 @@ class Stopwatch
         );
     }
 
-    /**
-     * @return int
-     */
-    private function getCurrentTimeStamp()
+    private function getCurrentTimeStamp(): int
     {
         return time();
     }

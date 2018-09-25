@@ -13,8 +13,10 @@ class Combine
      * @param array $values
      * @return array
      */
-    public function __invoke(array $keys, array $values)
-    {
+    public function __invoke(
+        array $keys,
+        array $values
+    ) {
         return $this->combine($keys, $values);
     }
 
@@ -23,12 +25,14 @@ class Combine
      * @param array $values
      * @return array
      */
-    public function combine(array $keys, array $values)
-    {
+    public function combine(
+        array $keys,
+        array $values
+    ) {
         list($areEmpty, $areSameInSize, $areMoreKeys) = $this->createConditions($keys, $values);
 
         if ($areEmpty) {
-            $combined = array();
+            $combined = [];
         } else if ($areSameInSize) {
             $combined = array_combine($keys, $values);
         } else {
@@ -47,8 +51,10 @@ class Combine
      * @param array $values
      * @return array
      */
-    private function createConditions(array $keys, array $values)
-    {
+    private function createConditions(
+        array $keys,
+        array $values
+    ) {
         $sizeOfKeys     = count($keys);
         $sizeOfValues   = count($values);
 
@@ -56,7 +62,11 @@ class Combine
         $areSameInSize  = ($sizeOfKeys === $sizeOfValues);
         $areMoreKeys    = ($sizeOfKeys > $sizeOfValues);
 
-        return array($areEmpty, $areSameInSize, $areMoreKeys);
+        return [
+            $areEmpty,
+            $areSameInSize,
+            $areMoreKeys
+        ];
     }
 
     /**
@@ -64,9 +74,11 @@ class Combine
      * @param array $values
      * @return array
      */
-    private function combineWithMoreKeys(array $keys, array $values)
-    {
-        $combined = array();
+    private function combineWithMoreKeys(
+        array $keys,
+        array $values
+    ) {
+        $combined = [];
 
         foreach (array_values($keys) as $index => $key) {
             if (isset($values[$index])) {
@@ -82,9 +94,11 @@ class Combine
      * @param array $values
      * @return array
      */
-    private function combineWithMoreValues(array $keys, array $values)
-    {
-        $combined = array();
+    private function combineWithMoreValues(
+        array $keys,
+        array $values
+    ) {
+        $combined = [];
 
         foreach (array_values($values) as $index => $value) {
             if (isset($keys[$index])) {

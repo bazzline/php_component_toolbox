@@ -105,6 +105,8 @@ class ExperimentTest extends AbstractTestCase
         $this->tryOutExperiment($trial, $times, $wait, $onSuccess, $onFailure, $expectedWasSuccessful, $successfulExecuted, $fallbackExecuted);
     }
 
+
+
     /**
      * @param callback $trial
      * @param int $times
@@ -114,15 +116,35 @@ class ExperimentTest extends AbstractTestCase
      * @param bool $expectedWasSuccessful
      * @param bool $successfulExecuted
      * @param bool $fallbackExecuted
+     * @throws \Exception
+     * @throws \InvalidArgumentException
+     * @throws \PHPUnit_Framework_AssertionFailedError
      */
-    private function tryOutExperiment($trial, $times, $wait, $onSuccess, $onFailure, $expectedWasSuccessful, &$successfulExecuted, &$fallbackExecuted)
-    {
+    private function tryOutExperiment(
+        $trial,
+        int $times,
+        int $wait,
+        $onSuccess,
+        $onFailure,
+        bool $expectedWasSuccessful,
+        bool &$successfulExecuted,
+        bool &$fallbackExecuted
+    ) {
         $experiment = $this->getNewExperimentProcess();
 
-        $experiment->prepareNewExperiment($trial, $times, $wait, $onSuccess, $onFailure);
+        $experiment->prepareNewExperiment(
+            $trial,
+            $times,
+            $wait,
+            $onSuccess,
+            $onFailure
+        );
         $wasSuccessful = $experiment->andTryIt();
 
-        $this->assertEquals($expectedWasSuccessful, $wasSuccessful);
+        $this->assertEquals(
+            $expectedWasSuccessful,
+            $wasSuccessful
+        );
 
         if ($expectedWasSuccessful) {
             $this->assertFalse($fallbackExecuted);

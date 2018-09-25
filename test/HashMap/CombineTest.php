@@ -15,38 +15,38 @@ class CombineTest extends AbstractTestCase
      */
     public function combineTestCaseProvider()
     {
-        return array(
-            'empty keys and values' => array(
-                array(),
-                array(),
-                array()
-            ),
-            'empty keys and not empty values' => array(
-                array(),
-                array('foo', 'bar'),
-                array('foo', 'bar')
-            ),
-            'not empty keys and empty values' => array(
-                array('foo', 'bar'),
-                array(),
-                array()
-            ),
-            'keys and values, same in size' => array(
-                array('baz', 'foobar'),
-                array('foo', 'bar'),
-                array('baz' => 'foo', 'foobar' => 'bar')
-            ),
-            'smaller sized keys and values' => array(
-                array('baz', 'foobar'),
-                array('foo', 'bar', 'barfoo'),
-                array('baz' => 'foo', 'foobar' => 'bar', 'barfoo')
-            ),
-            'keys and smaller sized values' => array(
-                array('baz', 'foobar', 'barfoo'),
-                array('foo', 'bar'),
-                array('baz' => 'foo', 'foobar' => 'bar')
-            )
-        );
+        return [
+            'empty keys and values' => [
+                [],
+                [],
+                []
+            ],
+            'empty keys and not empty values' => [
+                [],
+                ['foo', 'bar'],
+                ['foo', 'bar']
+            ],
+            'not empty keys and empty values' => [
+                ['foo', 'bar'],
+                [],
+                []
+            ],
+            'keys and values, same in size' => [
+                ['baz', 'foobar'],
+                ['foo', 'bar'],
+                ['baz' => 'foo', 'foobar' => 'bar']
+            ],
+            'smaller sized keys and values' => [
+                ['baz', 'foobar'],
+                ['foo', 'bar', 'barfoo'],
+                ['baz' => 'foo', 'foobar' => 'bar', 'barfoo']
+            ],
+            'keys and smaller sized values' => [
+                ['baz', 'foobar', 'barfoo'],
+                ['foo', 'bar'],
+                ['baz' => 'foo', 'foobar' => 'bar']
+            ]
+        ];
     }
 
     /**
@@ -55,8 +55,11 @@ class CombineTest extends AbstractTestCase
      * @param array $values
      * @param array $expectedResult
      */
-    public function testCombine(array $keys, array $values, array $expectedResult)
-    {
+    public function testCombine(
+        array $keys,
+        array $values,
+        array $expectedResult
+    ) {
         $combine = $this->getHashMapCombine();
 
         $this->assertEquals($expectedResult, $combine($keys, $values));

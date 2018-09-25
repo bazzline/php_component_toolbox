@@ -34,10 +34,7 @@ class Experiment
         $this->reset();
     }
 
-    /**
-     * @return bool
-     */
-    public function __invoke()
+    public function __invoke(): bool
     {
         return $this->andTryIt();
     }
@@ -51,8 +48,13 @@ class Experiment
      * @return $this
      * @throws InvalidArgumentException
      */
-    public function prepareNewExperiment($trial, $numberOfRetries = 3, $millisecondsToWaitBetweenRetry = 250, $onSuccess = null, $onFailure = null)
-    {
+    public function prepareNewExperiment(
+        $trial,
+        int $numberOfRetries = 3,
+        int $millisecondsToWaitBetweenRetry = 250,
+        $onSuccess = null,
+        $onFailure = null
+    ) {
         $this->reset();
 
         if (is_callable($onFailure)) {
@@ -75,10 +77,13 @@ class Experiment
         return $this;
     }
 
+
+
     /**
      * @return bool
+     * @throws Exception
      */
-    public function andTryIt()
+    public function andTryIt(): bool
     {
         $fallback           = $this->onFailure;
         $iterator           = 0;
@@ -110,7 +115,7 @@ class Experiment
      * @param callable $trial
      * @return bool
      */
-    private function wasSuccessful($trial)
+    private function wasSuccessful($trial): bool
     {
         try {
             $wasSuccessful = $this->call($trial);
@@ -126,7 +131,7 @@ class Experiment
      * @return bool
      * @throws Exception
      */
-    private function call($callable)
+    private function call($callable): bool
     {
         return call_user_func($callable);
     }

@@ -106,12 +106,12 @@ class ChunkIteratorTest extends AbstractTestCase
     public function testThatNoChunkIsEverProcessedMoreThanOnce()
     {
         $chunkIterator          = $this->getNewCollectionChunkIterator();
-        $expectedChunks         = array(
-            0 => array(0, 9),
-            1 => array(10, 19),
-            2 => array(20, 29),
-            3 => array(30, 30)
-        );
+        $expectedChunks         = [
+            0 => [0, 9],
+            1 => [10, 19],
+            2 => [20, 29],
+            3 => [30, 30]
+        ];
         $expectedNumberOfChunks = count($expectedChunks);
         $numberOfChunks         = 0;
 

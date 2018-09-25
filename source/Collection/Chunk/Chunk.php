@@ -17,24 +17,20 @@ class Chunk
      * @param int $maximum
      * @param int $minimum
      */
-    public function __construct($maximum, $minimum)
-    {
+    public function __construct(
+        int $maximum,
+        int $minimum
+    ) {
         $this->maximum  = (int) $maximum;
         $this->minimum  = (int) $minimum;
     }
 
-    /**
-     * @return int
-     */
-    public function minimum()
+    public function minimum(): int
     {
         return $this->minimum;
     }
 
-    /**
-     * @return int
-     */
-    public function maximum()
+    public function maximum(): int
     {
         return $this->maximum;
     }

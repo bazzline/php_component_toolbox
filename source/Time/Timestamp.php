@@ -7,26 +7,17 @@ namespace Net\Bazzline\Component\Toolbox\Time;
 
 class Timestamp
 {
-    /**
-     * @return int
-     */
-    public function getCurrentTimestamp()
+    public function getCurrentTimestamp(): int
     {
         return time();
     }
 
-    /**
-     * @return int
-     */
-    public function __invoke()
+    public function __invoke(): int
     {
         return $this->getCurrentTimestamp();
     }
 
-    /**
-     * @return string
-     */
-    public function __toString()
+    public function __toString(): string
     {
         return (string) $this->getCurrentTimestamp();
     }

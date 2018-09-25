@@ -46,8 +46,11 @@ class ChunkIterator implements Iterator
      * @param null|int $stepSize
      * @throws InvalidArgumentException
      */
-    public function __construct($maximum = null, $minimum = null, $stepSize = null)
-    {
+    public function __construct(
+        int $maximum = null,
+        int $minimum = null,
+        int $stepSize = null
+    ) {
         $allMandatoryArgumentsAreProvided = (
             (!is_null($maximum))
             && (!is_null($minimum))
@@ -65,8 +68,11 @@ class ChunkIterator implements Iterator
      * @param int $stepSize
      * @throws InvalidArgumentException
      */
-    public function initialize($totalMaximum, $initialMinimum, $stepSize)
-    {
+    public function initialize(
+        int $totalMaximum,
+        int $initialMinimum,
+        int $stepSize
+    ) {
         //begin of input validation
         $initialMinimum     = $this->createNewRealNumber($initialMinimum);
         $stepSize           = $this->createNewRealNumber($stepSize);
@@ -317,9 +323,12 @@ echo PHP_EOL;
         return new Chunk((string) $maximum, (string) $minimum);
     }
 
+
+
     /**
      * @param $number
      * @return RealNumber
+     * @throws InvalidArgumentException
      */
     private function createNewRealNumber($number)
     {

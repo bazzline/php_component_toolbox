@@ -29,8 +29,12 @@ class EnumerableDeferred
      * @param callable $finisher
      * @param int $limit
      */
-    public function __construct($initializer, $processor, $finisher, $limit = 10)
-    {
+    public function __construct(
+        $initializer,
+        $processor,
+        $finisher,
+        int $limit = 10
+    ) {
         $this->iterationLimit   = (int) $limit;
         $this->initializer      = $initializer;
         $this->processor        = $processor;
@@ -49,7 +53,13 @@ class EnumerableDeferred
      */
     public function __invoke($data = null)
     {
-        call_user_func_array(array($this, 'increase'), func_get_args());
+        call_user_func_array(
+            [
+                $this,
+                'increase'
+            ],
+            func_get_args()
+        );
     }
 
     /**
@@ -85,10 +95,15 @@ class EnumerableDeferred
      * @param callable $callable
      * @param null|array $arguments
      */
-    private function call($callable, $arguments = null)
-    {
+    private function call(
+        $callable,
+        array $arguments = null
+    ) {
         if (!is_null($arguments)) {
-            call_user_func_array($callable, $arguments);
+            call_user_func_array(
+                $callable,
+                $arguments
+            );
         } else {
             call_user_func($callable);
         }
@@ -99,8 +114,10 @@ class EnumerableDeferred
      * @param int $limit
      * @return bool
      */
-    private function limitReached($iterator, $limit)
-    {
+    private function limitReached(
+        int $iterator,
+        int $limit
+    ) {
         return ($iterator >= $limit);
     }
 }

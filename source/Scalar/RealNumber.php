@@ -13,10 +13,13 @@ class RealNumber
     /** @var int|float|double */
     private $value;
 
+
+
     /**
      * Number constructor.
      *
      * @param int|float|double|RealNumber $value
+     * @throws InvalidArgumentException
      */
     public function __construct($value)
     {
@@ -54,7 +57,7 @@ class RealNumber
      */
     public function isEqual(RealNumber $number)
     {
-        return ($this == $number);
+        return ($this === $number);
     }
 
     /**
@@ -97,18 +100,24 @@ class RealNumber
         return ($this <= $number);
     }
 
+
+
     /**
      * @param RealNumber $number
      * @return RealNumber
+     * @throws InvalidArgumentException
      */
     public function minus(RealNumber $number)
     {
         return new self($this->value - $number->value);
     }
 
+
+
     /**
      * @param RealNumber $number
      * @return RealNumber
+     * @throws InvalidArgumentException
      */
     public function plus(RealNumber $number)
     {

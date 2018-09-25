@@ -14,9 +14,16 @@ class Merge
      * @param bool $doNotPreserveNumericKeys
      * @return array
      */
-    public function __invoke(array $arrayToMergeInto, array $arrayToMergeFrom, $doNotPreserveNumericKeys = true)
-    {
-        return $this->merge($arrayToMergeInto, $arrayToMergeFrom, $doNotPreserveNumericKeys);
+    public function __invoke(
+        array $arrayToMergeInto,
+        array $arrayToMergeFrom,
+        $doNotPreserveNumericKeys = true
+    ) {
+        return $this->merge(
+            $arrayToMergeInto,
+            $arrayToMergeFrom,
+            $doNotPreserveNumericKeys
+        );
     }
 
     /**
@@ -26,8 +33,11 @@ class Merge
      * @return array
      * @see https://github.com/zendframework/zend-stdlib/blob/master/src/ArrayUtils.php static method merge
      */
-    public function merge(array $arrayToMergeInto, array $arrayToMergeFrom, $doNotPreserveNumericKeys = true)
-    {
+    public function merge(
+        array $arrayToMergeInto,
+        array $arrayToMergeFrom,
+        $doNotPreserveNumericKeys = true
+    ) {
         foreach ($arrayToMergeFrom as $key => $value) {
             $keyExistsInSource = (isset($arrayToMergeInto[$key]) || array_key_exists($key, $arrayToMergeInto));
 

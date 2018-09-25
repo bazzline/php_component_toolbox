@@ -24,12 +24,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
+* dropped support for php below 7.0
 * fixed [issue/2](https://github.com/bazzline/php_component_toolbox/issues/2)
     * minimum and maximum can now be equal
     * step size can now be greater than the difference between provided minimum and maximum
 * fixed [issue/3](https://github.com/bazzline/php_component_toolbox/issues/3)
     * each chunk item will be provided only once
-* updated to phpunit 5.4
+* updated code base to php 7.0
 * added php 7.1 to travis
 * added php 7.2 to travis
 

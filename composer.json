@@ -17,10 +17,10 @@
     "type": "library",
     "minimum-stability": "dev",
     "require": {
-        "php": ">=5.3.3"
+        "php": ">=7.0.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "~4.8||~5.4"
+        "phpunit/phpunit": "~6"
     },
     "license": "LGPL-3.0",
     "authors": [
