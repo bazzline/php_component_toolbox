@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 
 * added RealNumber
+* added [this](CHANGELOG.md) changelog
 
 ### Changed
 
@@ -29,6 +30,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 * fixed [issue/3](https://github.com/bazzline/php_component_toolbox/issues/3)
     * each chunk item will be provided only once
 * updated to phpunit 5.4
+* added php 7.1 to travis
+* added php 7.2 to travis
 
 ## [1.9.0](https://github.com/bazzline/php_component_toolbox/tree/1.9.0) - released at 06.03.2016
 
@@ -54,7 +57,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 * added [Merge](https://github.com/bazzline/php_component_toolbox/blob/master/source/HashMap/Merge.php)
 * added [Text](https://github.com/bazzline/php_component_toolbox/blob/master/source/Scalar/Text.php)::hasTheLengthOf($string, $expectedLength), Text::isLongerThan($string, $expectedLength) and Text::isShorterThan($string, $expectedLength)
 * added [Text](https://github.com/bazzline/php_component_toolbox/blob/master/source/Scalar/Text.php)::hasTheLengthOf($string, $expectedLength), Text::isLongerThan($string, $expectedLength) and Text::isShorterThan($string, $expectedLength)
-* added [this](CHANGELOG.md) changelog
 
 ## [1.7.1](https://github.com/bazzline/php_component_toolbox/tree/1.7.1) - released at 11.12.2015
 
