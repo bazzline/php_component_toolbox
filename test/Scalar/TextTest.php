@@ -67,26 +67,26 @@ class TextTest extends AbstractTestCase
     {
         $haystack = 'traLalal lula bula';
 
-        return array(
-            array(
+        return [
+            [
                 $haystack,
                 'al l',
                 false,
                 true
-            ),
-            array(
+            ],
+            [
                 $haystack,
                 'lalal l',
                 false,
                 false
-            ),
-            array(
+            ],
+            [
                 $haystack,
                 'lalal l',
                 true,
                 true
-            )
-        );
+            ]
+        ];
     }
 
     /**
@@ -96,26 +96,26 @@ class TextTest extends AbstractTestCase
     {
         $haystack = 'traLalal lula bula';
 
-        return array(
-            array(
+        return [
+            [
                 $haystack,
                 ' bula',
                 false,
                 true
-            ),
-            array(
+            ],
+            [
                 $haystack,
                 '  bula',
                 false,
                 false
-            ),
-            array(
+            ],
+            [
                 $haystack,
                 'uLa',
                 true,
                 true
-            )
-        );
+            ]
+        ];
     }
 
     /**
@@ -125,25 +125,25 @@ class TextTest extends AbstractTestCase
     {
         $haystack = 'traLalal lula bula';
 
-        return array(
-            array(
+        return [
+            [
                 $haystack,
                 'traLalal l',
                 false,
                 true
-            ),
-            array(
+            ],
+            [
                 $haystack,
                 'trala',
                 false,
                 false
-            ),
-            array(
+            ],
+            [
                 $haystack,
                 'trala',
                 true,
                 true
-            )
-        );
+            ]
+        ];
     }
 }

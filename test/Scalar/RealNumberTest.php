@@ -16,17 +16,17 @@ class RealNumberTest extends AbstractTestCase
      */
     public function invalidConstructorArgumentProvider()
     {
-        return array(
-            'boolean'   => array(
+        return [
+            'boolean'   => [
                 true
-            ),
-            'string'    => array(
+            ],
+            'string'    => [
                 'string'
-            ),
-            'object'    => array(
+            ],
+            'object'    => [
                 new stdClass(__LINE__)
-            )
-        );
+            ]
+        ];
     }
 
     /**
@@ -49,23 +49,23 @@ class RealNumberTest extends AbstractTestCase
     public function validConstructorArgumentProvider()
     {
         return array(
-            'int'       => array(
+            'int'       => [
                 3,
                 3
-            ),
-            'float'     => array(
+            ],
+            'float'     => [
                 3.3,
                 3.3
-            ),
-            'double'        => array(
+            ],
+            'double'        => [
                 3.3,
                 3.3
-            ),
-            'real_number'   => array(
+            ],
+            'real_number'   => [
                 new RealNumber(3),
                 new RealNumber(3)
-            )
-        );
+            ]
+        ];
     }
 
 

@@ -15,125 +15,125 @@ class MergeTest extends AbstractTestCase
      */
     public function mergeArraysTestCaseProvider()
     {
-        return array(
-            'merge-integer-and-string-keys' => array(
-                array(
+        return [
+            'merge-integer-and-string-keys' => [
+                [
                     'foo',
                     3     => 'bar',
                     'baz' => 'baz',
-                    4     => array(
+                    4     => [
                         'a',
                         1 => 'b',
-                        'c',
-                    ),
-                ),
-                array(
+                        'c'
+                    ]
+                ],
+                [
                     'baz',
-                    4 => array(
-                        'd' => 'd',
-                    ),
-                ),
+                    4 => [
+                        'd' => 'd'
+                    ]
+                ],
                 true,
-                array(
+                [
                     0     => 'foo',
                     3     => 'bar',
                     'baz' => 'baz',
-                    4     => array(
+                    4     => [
                         'a',
                         1 => 'b',
-                        'c',
-                    ),
+                        'c'
+                    ],
                     5     => 'baz',
-                    6     => array(
-                        'd' => 'd',
-                    )
-                )
-            ),
-            'merge-integer-and-string-keys-preserve-numeric' => array(
-                array(
+                    6     => [
+                        'd' => 'd'
+                    ]
+                ]
+            ],
+            'merge-integer-and-string-keys-preserve-numeric' => [
+                [
                     'foo',
                     3     => 'bar',
                     'baz' => 'baz',
-                    4     => array(
+                    4     => [
                         'a',
                         1 => 'b',
-                        'c',
-                    ),
-                ),
-                array(
+                        'c'
+                    ]
+                ],
+                [
                     'baz',
-                    4 => array(
-                        'd' => 'd',
-                    ),
-                ),
+                    4 => [
+                        'd' => 'd'
+                    ]
+                ],
                 false,
-                array(
+                [
                     0     => 'baz',
                     3     => 'bar',
                     'baz' => 'baz',
-                    4 => array(
+                    4 => [
                         'a',
                         1 => 'b',
                         'c',
                         'd' => 'd',
-                    ),
-                )
-            ),
-            'merge-arrays-recursively' => array(
-                array(
-                    'foo' => array(
+                    ],
+                ]
+            ],
+            'merge-arrays-recursively' => [
+                [
+                    'foo' => [
                         'baz'
-                    )
-                ),
-                array(
-                    'foo' => array(
+                    ]
+                ],
+                [
+                    'foo' => [
                         'baz'
-                    )
-                ),
+                    ]
+                ],
                 true,
-                array(
-                    'foo' => array(
+                [
+                    'foo' => [
                         0 => 'baz',
                         1 => 'baz'
-                    )
-                )
-            ),
-            'replace-string-keys' => array(
-                array(
+                    ]
+                ]
+            ],
+            'replace-string-keys' => [
+                [
                     'foo' => 'bar',
-                    'bar' => array()
-                ),
-                array(
+                    'bar' => []
+                ],
+                [
                     'foo' => 'baz',
                     'bar' => 'bat'
-                ),
+                ],
                 true,
-                array(
+                [
                     'foo' => 'baz',
                     'bar' => 'bat'
-                )
-            ),
-            'merge-with-null' => array(
-                array(
+                ]
+            ],
+            'merge-with-null' => [
+                [
                     'foo' => null,
                     null  => 'rod',
                     'cat' => 'bar',
                     'god' => 'rad'
-                ),
-                array(
+                ],
+                [
                     'foo' => 'baz',
                     null  => 'zad',
                     'god' => null
-                ),
+                ],
                 true,
-                array(
+                [
                     'foo' => 'baz',
                     null  => 'zad',
                     'cat' => 'bar',
                     'god' => null
-                )
-            )
-        );
+                ]
+            ]
+        ];
     }
 
 
@@ -153,6 +153,13 @@ class MergeTest extends AbstractTestCase
     ) {
         $merger =  $this->getHashMapMerge();
 
-        $this->assertEquals($expectedMergeResult, $merger($arrayToMergeInto, $arrayToMergeFrom, $doNotPreserveNumericKeys));
+        $this->assertEquals(
+            $expectedMergeResult,
+            $merger(
+                $arrayToMergeInto,
+                $arrayToMergeFrom,
+                $doNotPreserveNumericKeys
+            )
+        );
     }
 }

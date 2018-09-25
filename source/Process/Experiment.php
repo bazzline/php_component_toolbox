@@ -128,10 +128,10 @@ class Experiment
 
     /**
      * @param callable $callable
-     * @return bool
+     * @return mixed the function result, or false on error.
      * @throws Exception
      */
-    private function call($callable): bool
+    private function call($callable)
     {
         return call_user_func($callable);
     }
