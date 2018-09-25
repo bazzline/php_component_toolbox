@@ -2,6 +2,8 @@
 
 This project aims to deliver an easy to use and free as in freedom php component full of toolbox things you need on your daily work with php.
 
+The current change log can be found [here](CHANGELOG.md).
+
 # Install
 
 ## By Hand
@@ -46,56 +48,6 @@ git clone https://github.com/bazzline/php_component_toolbox .
 # API
 
 [API](http://www.bazzline.net/efef04b8bf3867f969285f1160d52ee8a719940e/index.html) is available at [bazzline.net](http://www.bazzline.net).
-
-# History
-
-* upcomming
-    * @todo
-        * add project overview (travis, scrutinizer, openhub etc.)
-        * create examples for the sections
-        * implement generator to update "Available Sections"
-    * updated to phpunit 5.4
-* [1.9.0](https://github.com/bazzline/php_component_toolbox/tree/1.9.0) - released at 06.03.2016
-    * added dedicated integration test for php 7.0
-    * moved to psr-4 autoloading
-    * removed dedicated integration test for php 5.3.3
-* [1.8.1](https://github.com/bazzline/php_component_toolbox/tree/1.8.0) - released at 12.01.2016
-    * fixed dependency handling for phpunit 4.8.\*
-* [1.8.0](https://github.com/bazzline/php_component_toolbox/tree/1.8.0) - released at 15.12.2015
-    * added [Merge](https://github.com/bazzline/php_component_toolbox/blob/master/source/HashMap/Merge.php)
-    * added [Text](https://github.com/bazzline/php_component_toolbox/blob/master/source/Scalar/Text.php)::hasTheLengthOf($string, $expectedLength), Text::isLongerThan($string, $expectedLength) and Text::isShorterThan($string, $expectedLength)
-    * added [Text](https://github.com/bazzline/php_component_toolbox/blob/master/source/Scalar/Text.php)::hasTheLengthOf($string, $expectedLength), Text::isLongerThan($string, $expectedLength) and Text::isShorterThan($string, $expectedLength)
-* [1.7.1](https://github.com/bazzline/php_component_toolbox/tree/1.7.1) - released at 11.12.2015
-    * fixed broken link in release 1.6.0
-    * updated dependency
-* [1.7.0](https://github.com/bazzline/php_component_toolbox/tree/1.7.0) - released at 05.11.2015
-    * added [Timestamp](https://github.com/bazzline/php_component_toolbox/blob/1.7.0/source/Net/Bazzline/Component/Toolbox/Time/Timestamp.php)
-* [1.6.0](https://github.com/bazzline/php_component_toolbox/tree/1.6.0) - released at 02.11.2015
-    * added [Stopwatch](https://github.com/bazzline/php_component_toolbox/blob/1.6.0/source/Net/Bazzline/Component/Toolbox/Time/Stopwatch.php)
-    * update release notes
-    * updated dependency to phpunit
-* [1.5.0](https://github.com/bazzline/php_component_toolbox/tree/1.5.0) - released at 10.10.2015
-    * added [Text](https://github.com/bazzline/php_component_toolbox/blob/1.5.0/source/Net/Bazzline/Component/Toolbox/Scalar/Text.php)
-* [1.4.1](https://github.com/bazzline/php_component_toolbox/tree/1.4.1) - released at 17.09.2015
-    * fixed validation issue and exception message spelling issue for the [Experiment](https://github.com/bazzline/php_component_toolbox/blob/1.4.1/source/Net/Bazzline/Component/Toolbox/Process/Experiment.php)
-* [1.4.0](https://github.com/bazzline/php_component_toolbox/tree/1.4.0) - released at 10.09.2015
-    * refactored api of the [Experiment](https://github.com/bazzline/php_component_toolbox/blob/1.4.0/source/Net/Bazzline/Component/Toolbox/Process/Experiment.php) heavily
-* [1.3.0](https://github.com/bazzline/php_component_toolbox/tree/1.3.0) - released at 09.09.2015
-    * added [Experiment](https://github.com/bazzline/php_component_toolbox/blob/1.3.0/source/Net/Bazzline/Component/Toolbox/Process/Experiment.php)
-* [1.2.2](https://github.com/bazzline/php_component_toolbox/tree/1.2.2) - released at 23.08.2015
-    * updated dependency
-* [1.2.1](https://github.com/bazzline/php_component_toolbox/tree/1.2.1) - released at 03.08.2015
-    * made [ChunkIterator](https://github.com/bazzline/php_component_toolbox/blob/1.2.1/source/Net/Bazzline/Component/Toolbox/Collection/Chunk/ChunkIterator.php) reusable by making constructor parameters optional and create public initialize method
-* [1.2.0](https://github.com/bazzline/php_component_toolbox/tree/1.2.0) - released at 03.08.2015
-    * added [ChunkIterator](https://github.com/bazzline/php_component_toolbox/blob/1.2.0/source/Net/Bazzline/Component/Toolbox/Collection/Chunk/ChunkIterator.php)
-* [1.1.2](https://github.com/bazzline/php_component_toolbox/tree/1.1.2) - released at 03.08.2015
-    * shifted parameters for EnumerableDeferred from (`$initializer, $finisher, $processor, $limit` to `$initializer, $processor, $finisher, $limit`)
-* [1.1.1](https://github.com/bazzline/php_component_toolbox/tree/1.1.1) - released at 30.07.2015
-    * updated dependency
-* [1.1.0](https://github.com/bazzline/php_component_toolbox/tree/1.1.0) - released at 30.07.2015
-    * added [EnumerableDeferred](https://github.com/bazzline/php_component_toolbox/blob/1.1.0/source/Net/Bazzline/Component/Toolbox/Process/EnumerableDeferred.php)
-* [1.0.0](https://github.com/bazzline/php_component_toolbox/tree/1.0.0) - released at 26.06.2015
-    * initial release 
 
 # Final Words
 

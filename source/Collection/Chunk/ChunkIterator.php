@@ -7,7 +7,16 @@ namespace Net\Bazzline\Component\Toolbox\Collection\Chunk;
 
 use InvalidArgumentException;
 use Iterator;
+use Net\Bazzline\Component\Toolbox\Scalar\RealNumber;
 
+/**
+ * Class ChunkIterator
+ *
+ * @package Net\Bazzline\Component\Toolbox\Collection\Chunk
+ * @see
+ *  https://github.com/bhearsum/chunkify/blob/master/chunkify/__init__.py
+ *  https://github.com/darrell-pittman/iterator-chunker/blob/master/index.js
+ */
 class ChunkIterator implements Iterator
 {
     /** @var Chunk */
@@ -16,14 +25,20 @@ class ChunkIterator implements Iterator
     /** @var int */
     private $currentStep;
 
-    /** @var int */
-    private $totalMaximum;
+    /** @var RealNumber */
+    private $initialMinimum;
 
-    /** @var int */
-    private $totalMinimum;
+    /** @var Chunk */
+    private $nextChunk;
 
-    /** @var int */
+    /** @var RealNumber */
     private $stepSize;
+
+    /** @var @var boolean */
+    private $stopOnNextIteration;
+
+    /** @var RealNumber */
+    private $totalMaximum;
 
     /**
      * @param null|int $maximum
@@ -45,30 +60,38 @@ class ChunkIterator implements Iterator
     }
 
     /**
-     * @param int $maximum
-     * @param int $minimum
+     * @param int $totalMaximum
+     * @param int $initialMinimum
      * @param int $stepSize
      * @throws InvalidArgumentException
      */
-    public function initialize($maximum, $minimum, $stepSize)
+    public function initialize($totalMaximum, $initialMinimum, $stepSize)
     {
-        if ($this->isGreaterThanOrEqual($minimum, $maximum)) {
+        //begin of input validation
+        $initialMinimum     = $this->createNewRealNumber($initialMinimum);
+        $stepSize           = $this->createNewRealNumber($stepSize);
+        $totalMaximum       = $this->createNewRealNumber($totalMaximum);
+
+        if ($totalMaximum->isLessThan($initialMinimum)) {
             throw new InvalidArgumentException(
-                'totalMinimum must be less than the totalMaximum'
+                'provided minimum must be less than or equal the provided maximum'
             );
         }
+        //end of input validation
 
-        $minimumIncreasedByOneStepSize = $this->calculateNextMinimum($minimum, $stepSize);
+        //begin of input value adaptation
+        $nextMaximum                            = $this->calculateNextMaximum($initialMinimum, $stepSize);
+        $nextMaximumIsGreaterThanTotalMaximum   = $nextMaximum->isGreaterThan($totalMaximum);
 
-        if ($this->isGreaterThanOrEqual($minimumIncreasedByOneStepSize, $maximum)) {
-            throw new InvalidArgumentException(
-                'step size must be less than the difference between the provided totalMinimum and totalMaximum'
-            );
+        if ($nextMaximumIsGreaterThanTotalMaximum) {
+            //looks like it will be only one chunk - the highlander chunk! :D
+            $stepSize = $totalMaximum->minus($initialMinimum);
         }
+        //end of input value adaptation
 
         $this->setStepSize($stepSize);
-        $this->setTotalMaximum($maximum);
-        $this->setTotalMinimum($minimum);
+        $this->setTotalMaximum($totalMaximum);
+        $this->setInitialMinimum($initialMinimum);
 
         $this->rewind();
     }
@@ -117,24 +140,84 @@ class ChunkIterator implements Iterator
      */
     public function next()
     {
+        //begin of dependencies
+        $currentChunk       = $this->currentChunk;
+        $stepSize           = $this->stepSize;
+        $totalMaximum       = $this->totalMaximum;
+        //end of dependencies
+
+        //begin of dynamic dependencies
+        $currentMinimum = $this->createNewRealNumber($currentChunk->minimum());
+        $currentMaximum = $this->createNewRealNumber($currentChunk->maximum());
+        $nextMinimum    = $this->calculateNextMinimum($currentMaximum);
+        $nextMaximum    = $this->calculateNextMaximum($currentMaximum, $stepSize);
+        echo PHP_EOL . 'current minimum: ' . $currentMinimum;
+        echo PHP_EOL . 'current maximum: ' . $currentMaximum;
+        echo PHP_EOL . 'next minimum: ' . $nextMinimum;
+        echo PHP_EOL . 'next maximum: ' . $nextMaximum;
+        //end of dynamic dependencies
+
+        //begin of business logic
+        if ($nextMinimum->isGreaterThan($totalMaximum)) {
+            echo PHP_EOL . 'next minimum is greater current maximum';
+            $nextChunk = null;
+        } else {
+            if ($nextMaximum->isGreaterThan($totalMaximum)) {
+                echo PHP_EOL . 'next maximum is greater current maximum';
+                $nextMaximum = $totalMaximum;
+            }
+
+            $nextChunk = $this->createNewChunk($nextMaximum, $nextMinimum);
+        }
+        //end of business logic
+
+        echo PHP_EOL . 'next chunk will be ' . (is_null($nextChunk) ? 'null' : 'not null');
+        $this->increaseCurrentStep();
+        $this->setCurrentChunkOrNull($nextChunk);
+
+        /*
+        //calculates next chunk based on current chunk, step size and total maximum
+        //sets next chunk as current chunk (or null or we move a "chunk->maxinum > $totalMaxmimum" logic into the valid method
         $currentChunk       = $this->currentChunk;
         $limit              = $this->totalMaximum;
         $nextChunkOrNull    = null;
         $stepSize           = $this->stepSize;
 
+echo PHP_EOL . 'current minimum: ' . $currentChunk->minimum();
+echo PHP_EOL . 'current maximum: ' . $currentChunk->maximum();
         $nextMaximum    = $this->calculateNextMaximum($currentChunk->maximum(), $stepSize);
         $nextMinimum    = $this->calculateNextMinimum($currentChunk->minimum(), $stepSize);
 
-        if (!$this->isGreaterThanOrEqual($nextMinimum, $limit)) {
-            if ($this->isGreaterThanOrEqual($nextMaximum, $limit)) {
+echo PHP_EOL . 'next minimum: ' . $nextMinimum;
+echo PHP_EOL . 'next maximum: ' . $nextMaximum;
+echo PHP_EOL . 'limit: ' . $limit;
+        $nextMinimumIsEqualOrBelowTheLimit = $nextMinimum->isLessThanOrEqual($limit);
+
+        if ($nextMinimumIsEqualOrBelowTheLimit) {
+            $nextMaximumIsAboveTheLimit = $nextMinimum->isGreaterThan($limit);
+
+            if ($nextMaximumIsAboveTheLimit) {
                 $nextMaximum = $limit;
             }
 
             $nextChunkOrNull = $this->createNewChunk($nextMaximum, $nextMinimum);
             $this->increaseCurrentStep();
+        } else {
+            if ($this->doNotStopOnThisIterator()) {
+                $nextMaximum = $limit;
+                $nextMinimum = $limit;
+                $nextChunkOrNull = $this->createNewChunk($nextMaximum, $nextMinimum);
+                $this->increaseCurrentStep();
+                $this->stopOnNextIteration();
+echo PHP_EOL . '    next minimum: ' . $nextMinimum;
+echo PHP_EOL . '    limit: ' . $limit;
+            }
         }
+echo PHP_EOL . 'is chunk ' . (is_null($nextChunkOrNull) ? 'no' : 'yes');
+echo PHP_EOL;
 
         $this->setCurrentChunkOrNull($nextChunkOrNull);
+        */
     }
 
     /**
@@ -145,53 +228,102 @@ class ChunkIterator implements Iterator
      */
     public function rewind()
     {
-        $initialMinimum = $this->totalMinimum;
+        //begin of dependencies
+        $initialMinimum = $this->initialMinimum;
+        $stepSize       = $this->stepSize;
+        //end of dependencies
+
+        //begin of dynamic dependencies
+        $nextMaximum = $this->calculateInitialMaximum($initialMinimum, $stepSize);
+
+        echo PHP_EOL . 'initial minimum: ' . $initialMinimum . ' next maximum: ' . $nextMaximum;
+        //to support iteration from 0 to 0 (one step)
+        if ($initialMinimum->isEqual($this->createNewRealNumber(0))) {
+            //?
+            //$nextMaximum = $this->createNewRealNumber(0);
+        //to support minimum and maximum are equal (one step)
+        } else if ($nextMaximum->isLessThan($initialMinimum)) {
+            $nextMaximum = $initialMinimum;
+        }
+
+        echo PHP_EOL . 'initial minimum: ' . $initialMinimum . ' next maximum: ' . $nextMaximum;
+        $currentChunk = $this->createNewChunk($nextMaximum, $initialMinimum);
+        //end of dynamic dependencies
+
+        $this->initialCurrentStepSize();
+        $this->setCurrentChunkOrNull($currentChunk);
+
+        /** @todo remove
+        //resets current step
+        //creates current chunk based on initial minimum, step size and total maximum
+        $initialMinimum = $this->initialMinimum;
         $stepSize       = $this->stepSize;
         $initialMaximum = $this->calculateInitialMaximum($initialMinimum, $stepSize);
+
+        if ($initialMaximum->isLessThan($initialMinimum)) {
+            $initialMaximum = $initialMinimum;
+            $nextChunk      = null;
+        } else {
+            $nextMinimum    = $this->calculateNextMinimum($initialMinimum, $stepSize);
+            $nextMaximum    = $this->calculateNextMaximum($initialMaximum, $stepSize);
+            $nextChunk      = $this->createNewChunk($nextMaximum, $nextMinimum);
+        }
+
         $initialChunk   = $this->createNewChunk($initialMaximum, $initialMinimum);
 
+        $this->setNextChunkOrNull($nextChunk);
+        $this->doNotStopOnNextIteration();
+        $this->initialCurrentStepSize();
         $this->setCurrentChunkOrNull($initialChunk);
-        $this->resetCurrentStep();
+        */
     }
 
     /**
-     * @param int $minimum
-     * @param int $stepSize
-     * @return int
+     * @param RealNumber $initialMinimum
+     * @param RealNumber $stepSize
+     * @return RealNumber
      */
-    private function calculateInitialMaximum($minimum, $stepSize)
+    private function calculateInitialMaximum(RealNumber $initialMinimum, RealNumber $stepSize)
     {
-        return ($this->calculateNextMaximum($minimum, $stepSize) - 1);
+        return ($this->calculateNextMaximum($initialMinimum, $stepSize)->minus($this->createNewRealNumber(1)));
     }
 
     /**
-     * @param int $currentMaximum
-     * @param int $stepSize
-     * @return int
+     * @param RealNumber $currentMinimum
+     * @param RealNumber $stepSize
+     * @return RealNumber
      */
-    private function calculateNextMaximum($currentMaximum, $stepSize)
+    private function calculateNextMaximum(RealNumber $currentMinimum, RealNumber $stepSize)
     {
-        return ($currentMaximum + $stepSize);
+        return ($currentMinimum->plus($stepSize));
     }
 
     /**
-     * @param int $currentMinimum
-     * @param int $stepSize
-     * @return int
+     * @param RealNumber $currentMinimum
+     * @return RealNumber
      */
-    private function calculateNextMinimum($currentMinimum, $stepSize)
+    private function calculateNextMinimum(RealNumber $currentMinimum)
     {
-        return ($currentMinimum + $stepSize);
+        return ($currentMinimum->plus($this->createNewRealNumber(1)));
     }
 
     /**
-     * @param int $maximum
-     * @param int $minimum
+     * @param RealNumber $maximum
+     * @param RealNumber $minimum
      * @return Chunk
      */
-    private function createNewChunk($maximum, $minimum)
+    private function createNewChunk(RealNumber $maximum, RealNumber $minimum)
     {
-        return new Chunk($maximum, $minimum);
+        return new Chunk((string) $maximum, (string) $minimum);
+    }
+
+    /**
+     * @param $number
+     * @return RealNumber
+     */
+    private function createNewRealNumber($number)
+    {
+        return new RealNumber($number);
     }
 
     private function increaseCurrentStep()
@@ -199,17 +331,7 @@ class ChunkIterator implements Iterator
         ++$this->currentStep;
     }
 
-    /**
-     * @param int $numberOne
-     * @param int $numberTwo
-     * @return bool
-     */
-    private function isGreaterThanOrEqual($numberOne, $numberTwo)
-    {
-        return ($numberOne >= $numberTwo);
-    }
-
-    private function resetCurrentStep()
+    private function initialCurrentStepSize()
     {
         $this->currentStep = 0;
     }
@@ -221,28 +343,55 @@ class ChunkIterator implements Iterator
     {
         $this->currentChunk = $chunk;
     }
+
+    /**
+     * @param RealNumber $minimum
+     */
+    private function setInitialMinimum(RealNumber $minimum)
+    {
+        $this->initialMinimum = $minimum;
+    }
+
+    /**
+     * @param Chunk|null $chunk
+     */
+    private function setNextChunkOrNull(Chunk $chunk = null)
+    {
+        $this->nextChunk = $chunk;
+    }
     
     /**
-     * @param int $stepSize
+     * @param RealNumber $stepSize
      */
-    private function setStepSize($stepSize)
+    private function setStepSize(RealNumber $stepSize)
     {
-        $this->stepSize = (int) $stepSize;
+        $this->stepSize = $stepSize;
     }
 
     /**
-     * @param int $maximum
+     * @param RealNumber $maximum
      */
-    private function setTotalMaximum($maximum)
+    private function setTotalMaximum(RealNumber $maximum)
     {
-        $this->totalMaximum = (int) $maximum;
+        $this->totalMaximum = $maximum;
     }
 
     /**
-     * @param int $minimum
+     * @return bool
+     * @todo find a better name
      */
-    private function setTotalMinimum($minimum)
+    private function doNotStopOnThisIterator()
     {
-        $this->totalMinimum = (int) $minimum;
+        return ($this->stopOnNextIteration !== true);
+    }
+
+    private function stopOnNextIteration()
+    {
+        $this->stopOnNextIteration = true;
+    }
+
+    private function doNotStopOnNextIteration()
+    {
+        $this->stopOnNextIteration = false;
     }
 }
