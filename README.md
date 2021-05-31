@@ -1,3 +1,7 @@
+# Full Stop
+
+I still like the idea but there is currently no use case to develop it anymore.
+
 # Toolbox Component for PHP
 
 This project aims to deliver an easy to use and free as in freedom php component full of toolbox things you need on your daily work with php.
