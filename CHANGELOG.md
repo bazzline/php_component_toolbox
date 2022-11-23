@@ -19,20 +19,27 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 
-* added RealNumber
-* added [this](CHANGELOG.md) changelog
+### Changed
+
+## [1.10.0](https://github.com/bazzline/php_component_toolbox/tree/1.10.0) - released at 2022-11-23
+
+### Added
+
+* Added RealNumber
+* Added [this](CHANGELOG.md) changelog
 
 ### Changed
 
-* dropped support for php below 7.0
-* fixed [issue/2](https://github.com/bazzline/php_component_toolbox/issues/2)
-    * minimum and maximum can now be equal
-    * step size can now be greater than the difference between provided minimum and maximum
-* fixed [issue/3](https://github.com/bazzline/php_component_toolbox/issues/3)
-    * each chunk item will be provided only once
-* updated code base to php 7.0
-* added php 7.1 to travis
-* added php 7.2 to travis
+* Removed `Collection\Chunk` and `Collection\ChunkItertor` since it is not used
+* Dropped support for php below 8.0
+* Fixed [issue/2](https://github.com/bazzline/php_component_toolbox/issues/2)
+    * Minimum and maximum can now be equal
+    * Step size can now be greater than the difference between provided minimum and maximum
+* Fixed [issue/3](https://github.com/bazzline/php_component_toolbox/issues/3)
+    * Each chunk item will be provided only once
+* Updated code base to php 8.0
+* Added php 8.0 to travis
+* Added php 8.1 to travis
 
 ## [1.9.0](https://github.com/bazzline/php_component_toolbox/tree/1.9.0) - released at 06.03.2016
 

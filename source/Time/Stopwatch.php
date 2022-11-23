@@ -7,11 +7,8 @@ namespace Net\Bazzline\Component\Toolbox\Time;
 
 class Stopwatch
 {
-    /** @var int */
-    private $runtimeInSeconds = 0;
-
-    /** @var int */
-    private $timeStampOfStart = 0;
+    private int $runtimeInSeconds = 0;
+    private int $timeStampOfStart = 0;
 
     public function getRuntime(): int
     {
@@ -20,19 +17,14 @@ class Stopwatch
 
     public function stop(): int
     {
-        if (is_null($this->runtimeInSeconds)) {
-            $this->calculateRuntime();
-        }
+        $this->calculateRuntime();
 
         return $this->getRuntime();
     }
 
-    /**
-     * @return $this
-     */
-    public function start()
+    public function start(): self
     {
-        $this->runtimeInSeconds = null;
+        $this->runtimeInSeconds = 0;
         $this->timeStampOfStart = $this->getCurrentTimeStamp();
 
         return $this;
@@ -45,12 +37,14 @@ class Stopwatch
         return ($end - $start);
     }
 
-    private function calculateRuntime()
+    private function calculateRuntime(): void
     {
-        $this->runtimeInSeconds = $this->calculateDifference(
-            $this->timeStampOfStart,
-            $this->getCurrentTimeStamp()
-        );
+        if ($this->timeStampOfStart > 0) {
+            $this->runtimeInSeconds = $this->calculateDifference(
+                $this->timeStampOfStart,
+                $this->getCurrentTimeStamp()
+            );
+        }
     }
 
     private function getCurrentTimeStamp(): int

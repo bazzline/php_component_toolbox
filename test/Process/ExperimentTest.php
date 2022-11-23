@@ -16,9 +16,9 @@ use Exception;
 class ExperimentTest extends AbstractTestCase
 {
     /**
-     * @throws \InvalidArgumentException
+     * @throws \InvalidArgumentException|Exception
      */
-    public function testIsSuccessfulOnLastRun()
+    public function testIsSuccessfulOnLastRun(): void
     {
         $iterator           = 0;
         $successfulExecuted = false;
@@ -51,9 +51,9 @@ class ExperimentTest extends AbstractTestCase
     }
 
     /**
-     * @throws \InvalidArgumentException
+     * @throws \InvalidArgumentException|Exception
      */
-    public function testIsSuccessfulOnFirstRun()
+    public function testIsSuccessfulOnFirstRun(): void
     {
         $iterator           = 0;
         $successfulExecuted = false;
@@ -86,9 +86,9 @@ class ExperimentTest extends AbstractTestCase
     }
 
     /**
-     * @throws \InvalidArgumentException
+     * @throws \InvalidArgumentException|Exception
      */
-    public function testIsNeverSuccessfulByReturningFalse()
+    public function testIsNeverSuccessfulByReturningFalse(): void
     {
         $successfulExecuted = false;
         $fallbackExecuted   = false;
@@ -119,9 +119,9 @@ class ExperimentTest extends AbstractTestCase
     }
 
     /**
-     * @throws \InvalidArgumentException
+     * @throws \InvalidArgumentException|Exception
      */
-    public function testIsNeverSuccessfulByThrowingException()
+    public function testIsNeverSuccessfulByThrowingException(): void
     {
         $successfulExecuted = false;
         $fallbackExecuted   = false;
@@ -168,15 +168,15 @@ class ExperimentTest extends AbstractTestCase
      * @throws \InvalidArgumentException
      */
     private function tryOutExperiment(
-        $trial,
+        callable $trial,
         int $times,
         int $wait,
-        $onSuccess,
-        $onFailure,
+        callable $onSuccess,
+        callable $onFailure,
         bool $expectedWasSuccessful,
         bool &$successfulExecuted,
         bool &$fallbackExecuted
-    ) {
+    ): void {
         $experiment = $this->getNewExperimentProcess();
 
         $experiment->prepareNewExperiment(

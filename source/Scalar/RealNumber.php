@@ -10,18 +10,15 @@ use SebastianBergmann\CodeCoverage\Report\PHP;
 
 class RealNumber
 {
-    /** @var int|float|double */
-    private $value;
-
-
+    private int|float $value;
 
     /**
      * Number constructor.
      *
-     * @param int|float|double|RealNumber $value
+     * @param float|int|RealNumber $value
      * @throws InvalidArgumentException
      */
-    public function __construct($value)
+    public function __construct(RealNumber|float|int $value)
     {
         if (is_numeric($value)) {
             $this->value = $value;
@@ -34,68 +31,37 @@ class RealNumber
         }
     }
 
-    /**
-     * @return int|float|double
-     */
-    public function toScalar()
+    public function toScalar(): int|float
     {
         return $this->value;
     }
 
-    /**
-     * @return float|int|string
-     */
-    public function __toString()
+    public function __toString(): string
     {
         return (string) $this->value;
     }
 
-    /**
-     * @param RealNumber $number
-     *
-     * @return bool
-     */
-    public function isEqual(RealNumber $number)
+    public function isEqual(RealNumber $number): bool
     {
         return ($this === $number);
     }
 
-    /**
-     * @param RealNumber $number
-     *
-     * @return bool
-     */
-    public function isGreaterThan(RealNumber $number)
+    public function isGreaterThan(RealNumber $number): bool
     {
         return ($this > $number);
     }
 
-    /**
-     * @param RealNumber $number
-     *
-     * @return bool
-     */
-    public function isGreaterThanOrEqual(RealNumber $number)
+    public function isGreaterThanOrEqual(RealNumber $number): bool
     {
         return ($this >= $number);
     }
 
-    /**
-     * @param RealNumber $number
-     *
-     * @return bool
-     */
-    public function isLessThan(RealNumber $number)
+    public function isLessThan(RealNumber $number): bool
     {
         return ($this->toScalar() < $number->toScalar());
     }
 
-    /**
-     * @param RealNumber $number
-     *
-     * @return bool
-     */
-    public function isLessThanOrEqual(RealNumber $number)
+    public function isLessThanOrEqual(RealNumber $number): bool
     {
         return ($this <= $number);
     }
@@ -107,7 +73,7 @@ class RealNumber
      * @return RealNumber
      * @throws InvalidArgumentException
      */
-    public function minus(RealNumber $number)
+    public function minus(RealNumber $number): RealNumber
     {
         return new self($this->value - $number->value);
     }
@@ -119,7 +85,7 @@ class RealNumber
      * @return RealNumber
      * @throws InvalidArgumentException
      */
-    public function plus(RealNumber $number)
+    public function plus(RealNumber $number): RealNumber
     {
         return new self($this->value + $number->value);
     }

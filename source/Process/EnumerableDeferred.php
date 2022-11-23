@@ -10,16 +10,10 @@ class EnumerableDeferred
 {
     /** @var callable */
     private $finisher;
-
     /** @var callable */
     private $initializer;
-
-    /** @var int */
-    private $iterator;
-
-    /** @var int */
-    private $iterationLimit;
-
+    private int $iterator;
+    private int $iterationLimit;
     /** callable */
     private $processor;
 
@@ -30,9 +24,9 @@ class EnumerableDeferred
      * @param int $limit
      */
     public function __construct(
-        $initializer,
-        $processor,
-        $finisher,
+        callable $initializer,
+        callable $processor,
+        callable $finisher,
         int $limit = 10
     ) {
         $this->iterationLimit   = (int) $limit;
@@ -51,7 +45,7 @@ class EnumerableDeferred
     /**
      * @param mixed $data,... unlimited optional number of additional variables [...]
      */
-    public function __invoke($data = null)
+    public function __invoke(mixed $data = null): void
     {
         call_user_func_array(
             [
@@ -65,7 +59,7 @@ class EnumerableDeferred
     /**
      * @param mixed $data,... unlimited optional number of additional variables [...]
      */
-    public function increase($data = null)
+    public function increase(mixed $data = null): void
     {
         $arguments = func_get_args();
         $this->call($this->processor, $arguments);
@@ -80,12 +74,12 @@ class EnumerableDeferred
         }
     }
 
-    private function finish()
+    private function finish(): void
     {
         $this->call($this->finisher);
     }
 
-    private function initialize()
+    private function initialize(): void
     {
         $this->iterator = 0;
         $this->call($this->initializer);
@@ -96,9 +90,9 @@ class EnumerableDeferred
      * @param null|array $arguments
      */
     private function call(
-        $callable,
+        callable $callable,
         array $arguments = null
-    ) {
+    ): void {
         if (!is_null($arguments)) {
             call_user_func_array(
                 $callable,
@@ -109,15 +103,10 @@ class EnumerableDeferred
         }
     }
 
-    /**
-     * @param int $iterator
-     * @param int $limit
-     * @return bool
-     */
     private function limitReached(
         int $iterator,
         int $limit
-    ) {
+    ): bool {
         return ($iterator >= $limit);
     }
 }

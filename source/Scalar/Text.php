@@ -20,12 +20,7 @@ class Text
                 $needle     = strtolower($needle);
             }
 
-            $contains = !(
-                strpos(
-                    $haystack,
-                    $needle
-                ) === false
-            );
+            $contains = str_contains($haystack, $needle);
         }
 
         return $contains;
@@ -55,30 +50,27 @@ class Text
         string $string,
         int $expectedLength
     ): bool {
-        $length         = strlen($string);
-        $hasTheLength   = ($length == $expectedLength);
+        $length = strlen($string);
 
-        return $hasTheLength;
+        return ($length == $expectedLength);
     }
 
     public function isLongerThan(
         string $string,
         int $expectedLength
     ): bool {
-        $length         = strlen($string);
-        $isLongerThan   = ($length > $expectedLength);
+        $length = strlen($string);
 
-        return $isLongerThan;
+        return ($length > $expectedLength);
     }
 
     public function isShorterThan(
         string $string,
         int $expectedLength
     ): bool {
-        $length         = strlen($string);
-        $isShorterThan  = ($length > $expectedLength);
+        $length = strlen($string);
 
-        return $isShorterThan;
+        return ($length > $expectedLength);
     }
 
 
@@ -98,14 +90,12 @@ class Text
             $needle     = strtolower($needle);
         }
 
-        $startsWith = (
+        return (
             strncmp(
                 $haystack,
                 $needle,
                 strlen($needle)
             ) === 0
         );
-
-        return $startsWith;
     }
 }

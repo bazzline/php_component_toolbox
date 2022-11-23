@@ -9,7 +9,7 @@ use Test\Net\Bazzline\Component\Toolbox\AbstractTestCase;
 
 class TimestampTest extends AbstractTestCase
 {
-    public function testTimestamp()
+    public function testTimestamp(): void
     {
         $timestamp          = $this->getNewTimestamp();
         $currentTimestamp   = time();

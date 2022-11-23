@@ -23,74 +23,37 @@ use PHPUnit\Framework\TestCase;
  */
 abstract class AbstractTestCase extends TestCase
 {
-    /**
-     * @param int $maximum
-     * @param int $minimum
-     * @param int $stepSize
-     * @return ChunkIterator
-     * @throws InvalidArgumentException
-     */
-    protected function getNewCollectionChunkIterator($maximum = null, $minimum = null, $stepSize = null)
-    {
-        return new ChunkIterator($maximum, $minimum, $stepSize);
-    }
-
-    /**
-     * @return Combine
-     */
-    protected function getHashMapCombine()
+    protected function getHashMapCombine(): Combine
     {
         return new Combine();
     }
 
-    /**
-     * @return Merge
-     */
-    protected function getHashMapMerge()
+    protected function getHashMapMerge(): Merge
     {
         return new Merge();
     }
 
-    /**
-     * @param callable $initializer
-     * @param callable $finisher
-     * @param callable $processor
-     * @param int $limit
-     * @return EnumerableDeferred
-     */
-    protected function getNewEnumerableDeferredProcess($initializer, $finisher, $processor, $limit = 10)
+    protected function getNewEnumerableDeferredProcess(callable $initializer, callable $finisher, callable $processor, int $limit = 10): EnumerableDeferred
     {
         return new EnumerableDeferred($initializer, $finisher, $processor, $limit);
     }
 
-    /**
-     * @return Experiment
-     */
-    protected function getNewExperimentProcess()
+    protected function getNewExperimentProcess(): Experiment
     {
         return new Experiment();
     }
 
-    /**
-     * @return Text
-     */
-    protected function getNewText()
+    protected function getNewText(): Text
     {
         return new Text();
     }
 
-    /**
-     * @return Stopwatch
-     */
-    protected function getNewStopwatchTime()
+    protected function getNewStopwatchTime(): Stopwatch
     {
         return new Stopwatch();
     }
 
-    /**
-     * @return Timestamp
-     */
-    protected function getNewTimestamp()
+    protected function getNewTimestamp(): Timestamp
     {
         return new Timestamp();
     }

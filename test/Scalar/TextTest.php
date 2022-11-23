@@ -16,7 +16,7 @@ class TextTest extends AbstractTestCase
      * @param bool $searchCaseInsensitive
      * @param bool $expectedResult
      */
-    public function testContains($haystack, $needle, $searchCaseInsensitive, $expectedResult)
+    public function testContains(string $haystack, string $needle, bool $searchCaseInsensitive, bool $expectedResult): void
     {
         $text = $this->getNewText();
 
@@ -33,7 +33,7 @@ class TextTest extends AbstractTestCase
      * @param bool $searchCaseInsensitive
      * @param bool $expectedResult
      */
-    public function testEndsWith($haystack, $needle, $searchCaseInsensitive, $expectedResult)
+    public function testEndsWith(string $haystack, string $needle, bool $searchCaseInsensitive, bool $expectedResult): void
     {
         $text = $this->getNewText();
 
@@ -50,7 +50,7 @@ class TextTest extends AbstractTestCase
      * @param bool $searchCaseInsensitive
      * @param bool $expectedResult
      */
-    public function testStartsWith($haystack, $needle, $searchCaseInsensitive, $expectedResult)
+    public function testStartsWith(string $haystack, string $needle, bool $searchCaseInsensitive, bool $expectedResult): void
     {
         $text = $this->getNewText();
 
@@ -60,10 +60,7 @@ class TextTest extends AbstractTestCase
         );
     }
 
-    /**
-     * @return array
-     */
-    public function containsTestProvider()
+    public function containsTestProvider(): array
     {
         $haystack = 'traLalal lula bula';
 
@@ -89,10 +86,7 @@ class TextTest extends AbstractTestCase
         ];
     }
 
-    /**
-     * @return array
-     */
-    public function endsWithTestProvider()
+    public function endsWithTestProvider(): array
     {
         $haystack = 'traLalal lula bula';
 
@@ -118,10 +112,7 @@ class TextTest extends AbstractTestCase
         ];
     }
 
-    /**
-     * @return array
-     */
-    public function startsWithTestProvider()
+    public function startsWithTestProvider(): array
     {
         $haystack = 'traLalal lula bula';
 

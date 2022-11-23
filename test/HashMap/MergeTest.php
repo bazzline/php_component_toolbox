@@ -10,10 +10,7 @@ use Test\Net\Bazzline\Component\Toolbox\AbstractTestCase;
 
 class MergeTest extends AbstractTestCase
 {
-    /**
-     * @return array
-     */
-    public function mergeArraysTestCaseProvider()
+    public function mergeArraysTestCaseProvider(): array
     {
         return [
             'merge-integer-and-string-keys' => [
@@ -150,7 +147,7 @@ class MergeTest extends AbstractTestCase
         array $arrayToMergeFrom,
         bool $doNotPreserveNumericKeys,
         array $expectedMergeResult
-    ) {
+    ): void {
         $merger =  $this->getHashMapMerge();
 
         self::assertEquals(

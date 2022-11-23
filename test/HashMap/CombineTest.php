@@ -10,10 +10,7 @@ use Test\Net\Bazzline\Component\Toolbox\AbstractTestCase;
 
 class CombineTest extends AbstractTestCase
 {
-    /**
-     * @return array
-     */
-    public function combineTestCaseProvider()
+    public function combineTestCaseProvider(): array
     {
         return [
             'empty keys and values' => [
@@ -59,7 +56,7 @@ class CombineTest extends AbstractTestCase
         array $keys,
         array $values,
         array $expectedResult
-    ) {
+    ): void {
         $combine = $this->getHashMapCombine();
 
         self::assertEquals($expectedResult, $combine($keys, $values));

@@ -16,16 +16,10 @@ class Experiment
 {
     /** @var callable */
     private $onFailure;
-
     /** @var callable */
     private $onSuccess;
-
-    /** @var int */
-    private $times;
-
-    /** @var int */
-    private $wait;
-
+    private int $times;
+    private int $wait;
     /** @var callable */
     private $trial;
 
@@ -49,12 +43,12 @@ class Experiment
      * @throws InvalidArgumentException
      */
     public function prepareNewExperiment(
-        $trial,
+        callable $trial,
         int $numberOfRetries = 3,
         int $millisecondsToWaitBetweenRetry = 250,
-        $onSuccess = null,
-        $onFailure = null
-    ) {
+        callable $onSuccess = null,
+        callable $onFailure = null
+    ): self {
         $this->reset();
 
         if (is_callable($onFailure)) {
@@ -131,12 +125,12 @@ class Experiment
      * @return mixed the function result, or false on error.
      * @throws Exception
      */
-    private function call($callable)
+    private function call(callable $callable): mixed
     {
         return call_user_func($callable);
     }
 
-    private function reset()
+    private function reset(): void
     {
         $this->onFailure    = function () {};
         $this->onSuccess    = function () {};

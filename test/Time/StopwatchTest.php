@@ -9,7 +9,7 @@ use Test\Net\Bazzline\Component\Toolbox\AbstractTestCase;
 
 class StopwatchTest extends AbstractTestCase
 {
-    public function testStopAndGetRuntimeWithoutStartingTheWatch()
+    public function testStopAndGetRuntimeWithoutStartingTheWatch(): void
     {
         $stopwatch = $this->getNewStopwatchTime();
 
@@ -17,7 +17,7 @@ class StopwatchTest extends AbstractTestCase
         self::assertEquals(0, $stopwatch->getRuntime());
     }
 
-    public function testStopAndGetRuntimeAfterStartingTheWatch()
+    public function testStopAndGetRuntimeAfterStartingTheWatch(): void
     {
         $stopwatch = $this->getNewStopwatchTime();
 

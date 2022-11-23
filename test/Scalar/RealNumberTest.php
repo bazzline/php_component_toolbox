@@ -6,6 +6,7 @@
 namespace Test\Net\Bazzline\Component\Toolbox\Scalar;
 
 use Net\Bazzline\Component\Toolbox\Scalar\RealNumber;
+use PHPUnit\Framework\AssertionFailedError;
 use stdClass;
 use Test\Net\Bazzline\Component\Toolbox\AbstractTestCase;
 
@@ -13,40 +14,9 @@ class RealNumberTest extends AbstractTestCase
 {
     /**
      * @return array
-     */
-    public function invalidConstructorArgumentProvider()
-    {
-        return [
-            'boolean'   => [
-                true
-            ],
-            'string'    => [
-                'string'
-            ],
-            'object'    => [
-                new stdClass()
-            ]
-        ];
-    }
-
-    /**
-     * @dataProvider invalidConstructorArgumentProvider
-     * @param $constructorArgument
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage provided value is not a number
-     */
-    public function testConstructorWithInvalidArguments($constructorArgument)
-    {
-        new RealNumber($constructorArgument);
-    }
-
-
-
-    /**
-     * @return array
      * @throws \InvalidArgumentException
      */
-    public function validConstructorArgumentProvider()
+    public function validConstructorArgumentProvider(): array
     {
         return [
             'int'       => [
@@ -54,10 +24,6 @@ class RealNumberTest extends AbstractTestCase
                 3
             ],
             'float'     => [
-                3.3,
-                3.3
-            ],
-            'double'        => [
                 3.3,
                 3.3
             ],
@@ -72,12 +38,12 @@ class RealNumberTest extends AbstractTestCase
 
     /**
      * @dataProvider validConstructorArgumentProvider
-     * @param int|float|double|number $constructorArgument
-     * @param int|float|double|number $expectedValue
+     * @param float|int|RealNumber $constructorArgument
+     * @param float|int|RealNumber $expectedValue
      * @throws \InvalidArgumentException
-     * @throws \PHPUnit\Framework\AssertionFailedError
+     * @throws AssertionFailedError
      */
-    public function testConstructorWithValidArguments($constructorArgument, $expectedValue)
+    public function testConstructorWithValidArguments(float|int|RealNumber $constructorArgument, float|int|RealNumber $expectedValue)
     {
         $number     = new RealNumber($constructorArgument);
         $isEqual    = ((string) $number == $expectedValue);
@@ -87,7 +53,7 @@ class RealNumberTest extends AbstractTestCase
 
     /**
      * @throws \InvalidArgumentException
-     * @throws \PHPUnit\Framework\AssertionFailedError
+     * @throws AssertionFailedError
      */
     public function testToScalar()
     {
@@ -102,7 +68,7 @@ class RealNumberTest extends AbstractTestCase
 
     /**
      * @throws \InvalidArgumentException
-     * @throws \PHPUnit\Framework\AssertionFailedError
+     * @throws AssertionFailedError
      */
     public function testComparison()
     {

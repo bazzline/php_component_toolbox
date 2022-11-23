@@ -9,7 +9,7 @@ use Test\Net\Bazzline\Component\Toolbox\AbstractTestCase;
 
 class EnumerableDeferredTest extends AbstractTestCase
 {
-    public function testIncrease()
+    public function testIncrease(): void
     {
         $argumentCollection     = [];
         $collection             = [];
@@ -45,11 +45,11 @@ class EnumerableDeferredTest extends AbstractTestCase
         self::assertEquals(5, $initializerIterator);
         self::assertEquals(44, $processIterator);
         foreach ($argumentCollection as $arguments) {
-            self::assertEquals($arguments, ['foo', 'bar']);
+            self::assertEquals(['foo', 'bar'], $arguments);
         }
     }
 
-    public function testInvoke()
+    public function testInvoke(): void
     {
         $argumentCollection     = [];
         $collection             = [];
@@ -85,7 +85,7 @@ class EnumerableDeferredTest extends AbstractTestCase
         self::assertEquals(5, $initializerIterator);
         self::assertEquals(44, $processIterator);
         foreach ($argumentCollection as $arguments) {
-            self::assertEquals($arguments, ['foo', 'bar']);
+            self::assertEquals(['foo', 'bar'], $arguments);
         }
     }
 }

@@ -8,27 +8,17 @@ namespace Net\Bazzline\Component\Toolbox\HashMap;
 
 class Combine
 {
-    /**
-     * @param array $keys
-     * @param array $values
-     * @return array
-     */
     public function __invoke(
         array $keys,
         array $values
-    ) {
+    ): array {
         return $this->combine($keys, $values);
     }
 
-    /**
-     * @param array $keys
-     * @param array $values
-     * @return array
-     */
     public function combine(
         array $keys,
         array $values
-    ) {
+    ): array {
         list($areEmpty, $areSameInSize, $areMoreKeys) = $this->createConditions($keys, $values);
 
         if ($areEmpty) {
@@ -46,15 +36,10 @@ class Combine
         return $combined;
     }
 
-    /**
-     * @param array $keys
-     * @param array $values
-     * @return array
-     */
     private function createConditions(
         array $keys,
         array $values
-    ) {
+    ): array {
         $sizeOfKeys     = count($keys);
         $sizeOfValues   = count($values);
 
@@ -69,15 +54,10 @@ class Combine
         ];
     }
 
-    /**
-     * @param array $keys
-     * @param array $values
-     * @return array
-     */
     private function combineWithMoreKeys(
         array $keys,
         array $values
-    ) {
+    ): array {
         $combined = [];
 
         foreach (array_values($keys) as $index => $key) {
@@ -89,15 +69,10 @@ class Combine
         return $combined;
     }
 
-    /**
-     * @param array $keys
-     * @param array $values
-     * @return array
-     */
     private function combineWithMoreValues(
         array $keys,
         array $values
-    ) {
+    ): array {
         $combined = [];
 
         foreach (array_values($values) as $index => $value) {

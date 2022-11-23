@@ -8,17 +8,11 @@ namespace Net\Bazzline\Component\Toolbox\HashMap;
 
 class Merge
 {
-    /**
-     * @param array $arrayToMergeInto
-     * @param array $arrayToMergeFrom
-     * @param bool $doNotPreserveNumericKeys
-     * @return array
-     */
     public function __invoke(
         array $arrayToMergeInto,
         array $arrayToMergeFrom,
-        $doNotPreserveNumericKeys = true
-    ) {
+        bool $doNotPreserveNumericKeys = true
+    ): array {
         return $this->merge(
             $arrayToMergeInto,
             $arrayToMergeFrom,
@@ -36,8 +30,8 @@ class Merge
     public function merge(
         array $arrayToMergeInto,
         array $arrayToMergeFrom,
-        $doNotPreserveNumericKeys = true
-    ) {
+        bool $doNotPreserveNumericKeys = true
+    ): array {
         foreach ($arrayToMergeFrom as $key => $value) {
             $keyExistsInSource = (isset($arrayToMergeInto[$key]) || array_key_exists($key, $arrayToMergeInto));
 
